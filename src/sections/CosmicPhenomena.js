@@ -10,28 +10,28 @@ const CosmicPhenomena = () => {
       id: 1,
       title: "Neutron Stars",
       description: "Observe the remnants of massive stars after a supernova explosion, with incredible density and magnetic fields.",
-      image: "https://images.unsplash.com/photo-1543722530-d2c3201371e7?q=80&w=2874&auto=format&fit=crop",
+      image: "https://aasnova.org/wp-content/uploads/2022/11/i-VBpZmnh-X3.jpg",
       color: "var(--color-energy-yellow)"
     },
     {
       id: 2,
       title: "Black Holes",
       description: "Witness regions of spacetime where gravity is so strong that nothing, not even light, can escape its gravitational pull.",
-      image: "https://images.nasa.gov/images/as16-113-18269~orig.jpg",
+      image: "https://motionarray.imgix.net/motion-array-1746234-UjKCxTfJrP-high_0009.jpg?w=660&q=60&fit=max&auto=format",
       color: "var(--color-nebula-purple)"
     },
     {
       id: 3,
       title: "Nebulae",
       description: "Explore the breathtaking interstellar clouds of gas and dust where new stars are being formed.",
-      image: "https://stsci-opo.org/STScI-01GA6KKWG229GDKH9HQPFC14MV.png",
+      image: "https://media.istockphoto.com/id/540717412/photo/blue-and-pink-nebula.jpg?s=612x612&w=0&k=20&c=LaTwe58EG3HNajqCIR-q_Pdlx9Z6w_IXeHI7eyZoPoQ=",
       color: "var(--color-nebula-pink)"
     },
     {
       id: 4,
       title: "Supernovae",
       description: "Experience the most powerful explosions in the universe as massive stars reach the end of their life cycle.",
-      image: "https://www.nasa.gov/wp-content/uploads/2023/03/Crab-JWST.jpg",
+      image: "https://assets.newatlas.com/dims4/default/57ad4ba/2147483647/strip/true/crop/3888x2592+0+140/resize/1200x800!/quality/90/?url=http%3A%2F%2Fnewatlas-brightspot.s3.amazonaws.com%2Fcf%2F97%2Fbafc9a434ab48ec8bd847467ab3a%2Fsupernova.jpg",
       color: "var(--color-energy-cyan)"
     }
   ];

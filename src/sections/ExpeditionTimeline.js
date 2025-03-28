@@ -25,7 +25,7 @@ const ExpeditionTimeline = () => {
       title: "Lunar Gateway Established",
       description: "The international lunar space station becomes fully operational, serving as a staging post for Moon missions.",
       icon: "🌓",
-      image: "https://www.nasa.gov/wp-content/uploads/2023/03/gateway20180411.jpg"
+      image: "https://cdn.mos.cms.futurecdn.net/hRUSvTgmzD5poPJZj2CtJC-1200-80.jpg"
     },
     {
       id: 3,
@@ -49,7 +49,7 @@ const ExpeditionTimeline = () => {
       title: "Europa Submarine Mission",
       description: "A submersible probe explores the vast ocean beneath Europa's icy surface, searching for extraterrestrial life.",
       icon: "🌊",
-      image: "https://www.nasa.gov/wp-content/uploads/2015/06/2-europa-artistconcept.jpg"
+      image: "https://www.astronomy.com/uploads/2021/09/ASYPS0718_02B.jpg"
     },
     {
       id: 6,
@@ -57,7 +57,7 @@ const ExpeditionTimeline = () => {
       title: "Interstellar Probe Launch",
       description: "Humanity launches its first dedicated interstellar spacecraft toward Proxima Centauri, our nearest stellar neighbor.",
       icon: "✨",
-      image: "https://images.unsplash.com/photo-1462331940025-496dfbfc7564?q=80&w=2944&auto=format&fit=crop"
+      image: "https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/14742e20-ac3e-4580-b025-163d5b8c6575/dfljmb4-709c19af-5135-4fe8-be42-498161003500.jpg/v1/fill/w_1920,h_873,q_75,strp/reaching_proxima_centauri_vii_by_euderion_dfljmb4-fullview.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9ODczIiwicGF0aCI6IlwvZlwvMTQ3NDJlMjAtYWMzZS00NTgwLWIwMjUtMTYzZDViOGM2NTc1XC9kZmxqbWI0LTcwOWMxOWFmLTUxMzUtNGZlOC1iZTQyLTQ5ODE2MTAwMzUwMC5qcGciLCJ3aWR0aCI6Ijw9MTkyMCJ9XV0sImF1ZCI6WyJ1cm46c2VydmljZTppbWFnZS5vcGVyYXRpb25zIl19.YWVcgYYV_QtIEnznpXFndsqm2aau_bjGmxe7SqU2oxA"
     }
   ];
   

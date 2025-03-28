@@ -1,349 +1,542 @@
+@import '../variables';
+@import '../mixins';
+@import '../animations';
+
 .observatory-deck {
   position: relative;
   min-height: 100vh;
+  width: 100%;
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  color: white;
   
-  .backdrop-stars {
+  .cosmic-background {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
-    height: 120%;
-    background-image: 
-      radial-gradient(2px 2px at 20px 30px, var(--color-text-primary), rgba(0,0,0,0)),
-      radial-gradient(2px 2px at 40px 70px, var(--color-text-primary), rgba(0,0,0,0)),
-      radial-gradient(2px 2px at 60px 110px, var(--color-text-primary), rgba(0,0,0,0)),
-      radial-gradient(2px 2px at 80px 150px, var(--color-text-primary), rgba(0,0,0,0)),
-      radial-gradient(2px 2px at 100px 190px, var(--color-text-primary), rgba(0,0,0,0)),
-      radial-gradient(2px 2px at 120px 230px, var(--color-text-primary), rgba(0,0,0,0));
-    background-size: 400px 400px;
-    background-repeat: repeat;
-    opacity: 0.4;
-    pointer-events: none;
-  }
-  
-  .observatory-content {
-    @include section-container;
-    min-height: calc(100vh - 120px);
-    @include flex(row, space-between, center);
-    padding-top: 80px; // Nav height offset
-    position: relative;
+    height: 100%;
+    z-index: -1;
     
-    @include respond-to(large) {
-      flex-direction: column;
-      justify-content: center;
-      padding-top: 120px;
-      padding-bottom: 120px;
-      text-align: center;
-    }
-  }
-  
-  .hero-text {
-    flex: 1;
-    max-width: 600px;
-    z-index: 1;
-    
-    .cosmic-caption {
-      display: block;
-      margin-bottom: var(--spacing-sm);
-    }
-    
-    h1 {
-      position: relative;
-      margin-bottom: var(--spacing-md);
-      text-shadow: 0 0 10px rgba(var(--color-nebula-teal), 0.3);
-      
-      &::after {
-        content: '';
-        position: absolute;
-        left: 0;
-        bottom: -10px;
-        width: 80px;
-        height: 4px;
-        background: linear-gradient(
-          to right,
-          var(--color-nebula-teal),
-          var(--color-nebula-purple)
-        );
-        border-radius: 2px;
-        
-        @include respond-to(large) {
-          left: 50%;
-          transform: translateX(-50%);
-        }
-      }
-    }
-    
-    p.lead {
-      margin-bottom: var(--spacing-lg);
-    }
-    
-    .hero-buttons {
-      @include flex(row, flex-start, center);
-      gap: var(--spacing-md);
-      
-      @include respond-to(large) {
-        justify-content: center;
-      }
-      
-      @include respond-to(small) {
-        flex-direction: column;
-        width: 100%;
-        
-        .cosmic-button {
-          width: 100%;
-          text-align: center;
-        }
-      }
-    }
-  }
-  
-  .planet-visualization {
-    position: relative;
-    width: 420px;
-    height: 420px;
-    
-    @include respond-to(large) {
-      margin-top: var(--spacing-xl);
-    }
-    
-    @include respond-to(medium) {
-      width: 340px;
-      height: 340px;
-    }
-    
-    @include respond-to(small) {
-      width: 280px;
-      height: 280px;
-    }
-    
-    .planet {
+    .earth-view {
       position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 240px;
-      height: 240px;
-      border-radius: 50%;
-      background: radial-gradient(circle at 30% 30%, 
-        var(--color-space-navy),
-        var(--color-space-dark) 60%,
-        var(--color-space-black) 100%
+      bottom: -20%;
+      left: -10%;
+      width: 60%;
+      height: 60%;
+      background: radial-gradient(
+        circle at center, 
+        rgba(40, 90, 150, 0.8) 10%, 
+        rgba(30, 60, 100, 0.6) 40%, 
+        rgba(20, 40, 80, 0.4) 60%, 
+        rgba(10, 20, 40, 0.2) 80%, 
+        transparent 100%
       );
+      border-radius: 50%;
+      overflow: hidden;
       box-shadow: 
-        0 0 60px rgba(var(--color-nebula-purple), 0.2),
-        inset 0 0 40px rgba(0, 0, 0, 0.8);
+        0 0 120px rgba(70, 130, 180, 0.3),
+        inset 0 0 60px rgba(255, 255, 255, 0.2);
       
-      @include respond-to(medium) {
-        width: 200px;
-        height: 200px;
-      }
-      
-      @include respond-to(small) {
-        width: 160px;
-        height: 160px;
-      }
-      
-      &::before {
+      &:before {
         content: '';
         position: absolute;
         top: 0;
         left: 0;
         width: 100%;
         height: 100%;
-        border-radius: 50%;
-        background: 
-          radial-gradient(circle at 70% 20%, rgba(var(--color-nebula-teal), 0.3), transparent 20%),
-          radial-gradient(circle at 20% 70%, rgba(var(--color-nebula-purple), 0.3), transparent 25%);
-        opacity: 0.6;
+        background: url('https://images.unsplash.com/photo-1614730321146-b6fa6a46bcb4?q=80&w=1000&auto=format&fit=crop') no-repeat center/cover;
+        opacity: 0.7;
+        animation: rotateEarth 120s linear infinite;
       }
       
-      .planet-ring {
+      &:after {
+        content: '';
         position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%) rotateX(75deg);
-        width: 380px;
-        height: 380px;
+        top: -10%;
+        left: -10%;
+        width: 120%;
+        height: 120%;
+        background: linear-gradient(
+          135deg,
+          rgba(255, 255, 255, 0.2) 0%,
+          rgba(255, 255, 255, 0) 50%,
+          rgba(255, 255, 255, 0) 100%
+        );
         border-radius: 50%;
-        border: 15px solid transparent;
-        opacity: 0.8;
-        background-image: linear-gradient(var(--color-space-dark), var(--color-space-dark)), 
-                          linear-gradient(to right, 
-                            var(--color-nebula-teal), 
-                            var(--color-nebula-purple),
-                            var(--color-nebula-teal)
-                          );
-        background-origin: border-box;
-        background-clip: content-box, border-box;
+        animation: shiftAtmosphere 15s ease-in-out infinite;
+      }
+    }
+    
+    .sun-glow {
+      position: absolute;
+      top: -10%;
+      right: -20%;
+      width: 50%;
+      height: 50%;
+      background: radial-gradient(circle, rgba(255,193,7,0.3) 0%, rgba(255,87,34,0.1) 40%, rgba(0,0,0,0) 70%);
+      animation: pulsateGlow 8s ease-in-out infinite;
+    }
+    
+    .backdrop-stars {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: 
+        radial-gradient(2px 2px at 20px 30px, #fff, rgba(0,0,0,0)),
+        radial-gradient(2px 2px at 40px 70px, #fff, rgba(0,0,0,0)),
+        radial-gradient(1px 1px at 90px 40px, #fff, rgba(0,0,0,0)),
+        radial-gradient(2px 2px at 160px 120px, #fff, rgba(0,0,0,0)),
+        radial-gradient(1px 1px at 200px 90px, #fff, rgba(0,0,0,0)),
+        radial-gradient(3px 3px at 260px 70px, #fff, rgba(0,0,0,0)),
+        radial-gradient(1px 1px at 300px 30px, #fff, rgba(0,0,0,0)),
+        radial-gradient(2px 2px at 350px 90px, #fff, rgba(0,0,0,0)),
+        radial-gradient(2px 2px at 400px 60px, #fff, rgba(0,0,0,0)),
+        radial-gradient(1px 1px at 450px 120px, #fff, rgba(0,0,0,0)),
+        radial-gradient(2px 2px at 500px 40px, #fff, rgba(0,0,0,0)),
+        radial-gradient(3px 3px at 550px 80px, #fff, rgba(0,0,0,0)),
+        radial-gradient(1px 1px at 600px 30px, #fff, rgba(0,0,0,0));
+      background-repeat: repeat;
+      background-size: 650px 150px;
+    }
+    
+    .nebula-clouds {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 100%;
+      height: 100%;
+      background: url('https://media.istockphoto.com/id/540717412/photo/blue-and-pink-nebula.jpg?s=612x612&w=0&k=20&c=LaTwe58EG3HNajqCIR-q_Pdlx9Z6w_IXeHI7eyZoPoQ=');
+      background-size: cover;
+      opacity: 0.2;
+      mix-blend-mode: screen;
+    }
+    
+    .shooting-stars-container {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      
+      .shooting-star {
+        position: absolute;
+        width: 150px;
+        height: 2px;
+        background: linear-gradient(90deg, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0) 100%);
+        border-radius: 50%;
+        opacity: 0;
+        box-shadow: 0 0 5px #fff, 0 0 8px #fff;
+        transform: rotate(-45deg);
         
-        @include respond-to(medium) {
-          width: 300px;
-          height: 300px;
-          border-width: 12px;
+        &:before {
+          content: '';
+          position: absolute;
+          top: -2px;
+          left: 0;
+          width: 15px;
+          height: 6px;
+          background: radial-gradient(ellipse at center, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0) 100%);
+          border-radius: 50%;
+        }
+      }
+    }
+  }
+  
+  .meteor {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 50%, rgba(255,255,255,0) 100%);
+    transform: rotate(45deg);
+    overflow: hidden;
+    box-shadow: 0 0 5px #fff;
+    
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 30px;
+      height: 1px;
+      background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.4) 100%);
+    }
+  }
+  
+  .observatory-content {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 8%;
+    max-width: 1600px;
+    margin: 0 auto;
+    height: 80vh;
+    
+    @media (max-width: 992px) {
+      flex-direction: column;
+      justify-content: center;
+      text-align: center;
+      padding-top: 2rem;
+      gap: 2rem;
+    }
+  }
+  
+  .hero-text {
+    flex: 1;
+    max-width: 600px;
+    z-index: 2;
+    
+    .cosmic-caption {
+      display: inline-block;
+      font-size: 1.2rem;
+      font-weight: 500;
+      color: $energy-blue;
+      margin-bottom: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      position: relative;
+      
+      &::after {
+        content: '';
+        position: absolute;
+        bottom: -0.5rem;
+        left: 0;
+        width: 30px;
+        height: 2px;
+        background: $energy-blue;
+      }
+    }
+    
+    h1 {
+      font-size: 4.5rem;
+      font-weight: 800;
+      margin-bottom: 1.5rem;
+      background: linear-gradient(to right, #fff, $energy-blue);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 0 15px rgba(56, 255, 221, 0.3);
+    }
+    
+    .lead {
+      font-size: 1.2rem;
+      line-height: 1.6;
+      margin-bottom: 2rem;
+      color: #b4c2d3;
+    }
+  }
+  
+  .hero-buttons {
+    display: flex;
+    gap: 1rem;
+    
+    .cosmic-button {
+      position: relative;
+      padding: 0.8rem 1.8rem;
+      border-radius: 4px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+      overflow: hidden;
+      
+      .button-text {
+        position: relative;
+        z-index: 1;
+      }
+      
+      .button-glow {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border-radius: 4px;
+      }
+      
+      &.primary {
+        background: $cosmic-gradient-1;
+        color: white;
+        
+        .button-glow {
+          background: $cosmic-gradient-1;
+          opacity: 0;
+          filter: blur(10px);
+          transition: opacity 0.3s ease;
         }
         
-        @include respond-to(small) {
-          width: 240px;
-          height: 240px;
-          border-width: 10px;
+        &:hover {
+          transform: translateY(-3px);
+          box-shadow: 0 8px 25px rgba(122, 95, 255, 0.5);
+          
+          .button-glow {
+            opacity: 0.6;
+          }
+        }
+      }
+      
+      &.secondary {
+        background: transparent;
+        color: white;
+        border: 1px solid rgba(255,255,255,0.2);
+        backdrop-filter: blur(10px);
+        
+        &:hover {
+          border-color: $energy-blue;
+          box-shadow: 0 0 20px rgba(56, 255, 221, 0.2);
+          background: rgba(56, 255, 221, 0.05);
         }
       }
     }
     
-    .space-station {
+    @media (max-width: 576px) {
+      flex-direction: column;
+    }
+  }
+  
+  .planet-visualization {
+    position: relative;
+    height: 500px;
+    width: 500px;
+    margin-right: -200px;
+    
+    .planet {
       position: absolute;
-      top: 20%;
-      right: 22%;
-      width: 120px;
-      height: 60px;
+      bottom: 10%;
+      left: 5%;
+      width: 320px;
+      height: 320px;
       
-      @include respond-to(medium) {
-        width: 100px;
-        height: 50px;
-      }
-      
-      @include respond-to(small) {
-        width: 80px;
-        height: 40px;
-      }
-      
-      .station-module {
+      .planet-atmosphere {
         position: absolute;
-        background: linear-gradient(to right, 
-          rgba(var(--color-text-primary), 0.9),
-          rgba(var(--color-text-primary), 0.7)
-        );
-        box-shadow: 0 0 8px rgba(var(--color-text-primary), 0.4);
-        
-        &.primary {
-          top: 20%;
-          left: 30%;
-          width: 40%;
-          height: 60%;
-          border-radius: 4px;
-        }
-        
-        &.secondary {
-          top: 10%;
-          left: 10%;
-          width: 20%;
-          height: 80%;
-          border-radius: 3px;
-        }
-        
-        &.tertiary {
-          top: 5%;
-          left: 70%;
-          width: 20%;
-          height: 90%;
-          border-radius: 3px;
-        }
-      }
-      
-      .solar-panels {
-        position: absolute;
-        top: 30%;
-        left: -60%;
         width: 100%;
-        height: 40%;
-        background: linear-gradient(to right, 
-          rgba(var(--color-energy-cyan), 0.8),
-          rgba(var(--color-nebula-teal), 0.6)
-        );
-        transform: perspective(100px) rotateY(-30deg);
+        height: 100%;
+        border-radius: 50%;
+        background: radial-gradient(circle at 30% 30%, #1976d2, #0d47a1);
+        box-shadow: 0 0 50px rgba(25, 118, 210, 0.4), inset 0 0 50px rgba(255, 255, 255, 0.1);
+      }
+      
+      .planet-surface {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        background-image: url('https://images.unsplash.com/photo-1614730321146-b6fa6a46bcb4?q=80&w=1000&auto=format&fit=crop');
+        background-size: cover;
+        background-position: center;
+        opacity: 0.8;
+        mix-blend-mode: overlay;
+      }
+      
+      .planet-ring {
+        position: absolute;
+        width: 150%;
+        height: 30px;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) rotateX(75deg);
+        border-radius: 50%;
+        background: transparent;
+        border: 4px solid rgba(200, 200, 220, 0.3);
+        box-shadow: 0 0 20px rgba(200, 200, 220, 0.2);
+        overflow: hidden;
         
-        &::before {
+        &:before {
           content: '';
           position: absolute;
-          top: 0;
-          left: 0;
           width: 100%;
           height: 100%;
-          background: repeating-linear-gradient(
-            to right,
-            transparent,
-            transparent 10%,
-            rgba(var(--color-text-primary), 0.1) 10%,
-            rgba(var(--color-text-primary), 0.1) 12%
-          );
+          top: 0;
+          left: 0;
+          background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+          animation: ringGlow 8s linear infinite;
         }
+      }
+    }
+    
+    .floating-astronaut {
+      position: absolute;
+      top: 20%;
+      right: 15%;
+      width: 100px;
+      height: 100px;
+      transform-origin: center center;
+      z-index: 2;
+      
+      img {
+        width: 100%;
+        height: auto;
+        filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.6));
       }
     }
   }
   
   .scroll-indicator {
     position: absolute;
-    bottom: var(--spacing-lg);
+    bottom: 2rem;
     left: 50%;
     transform: translateX(-50%);
-    @include flex(column, center, center);
-    color: var(--color-text-secondary);
-    font-size: 0.9rem;
+    text-align: center;
+    z-index: 10;
     
     span {
-      margin-bottom: var(--spacing-xs);
+      display: block;
+      font-size: 0.9rem;
+      letter-spacing: 2px;
+      color: rgba(255,255,255,0.6);
+      margin-bottom: 0.5rem;
     }
     
     .scroll-arrow {
-      width: 24px;
-      height: 24px;
-      animation: float 2s ease-in-out infinite;
+      width: 30px;
+      height: 30px;
+      margin: 0 auto;
+      animation: floatArrow 2s ease-in-out infinite;
       
       svg {
         width: 100%;
         height: 100%;
-        stroke: var(--color-nebula-teal);
+        stroke: rgba(255,255,255,0.6);
       }
     }
   }
   
   .space-stats {
-    position: relative;
-    z-index: 1;
-    max-width: 1440px;
-    margin: 0 auto;
-    padding: var(--spacing-lg);
-    @include flex(row, space-between, center);
-    @include cosmic-glass;
-    border-radius: 8px;
-    margin-top: -60px;
-    
-    @include respond-to(medium) {
-      flex-wrap: wrap;
-      gap: var(--spacing-lg);
-      text-align: center;
-    }
-    
-    @include respond-to(small) {
-      flex-direction: column;
-      gap: var(--spacing-lg);
-    }
+    display: flex;
+    justify-content: space-around;
+    padding: 2rem 5%;
+    margin-top: auto;
+    background: rgba(20, 30, 60, 0.4);
+    backdrop-filter: blur(10px);
+    border-top: 1px solid rgba(255,255,255,0.1);
     
     .stat-item {
-      @include flex(column, center, center);
-      
-      @include respond-to(medium) {
-        width: calc(50% - var(--spacing-lg) / 2);
-      }
+      text-align: center;
       
       .stat-value {
-        font-family: var(--font-primary);
-        font-size: 2.2rem;
+        display: block;
+        font-size: 2rem;
         font-weight: 700;
-        color: var(--color-nebula-teal);
-        line-height: 1;
-        
-        @include respond-to(medium) {
-          font-size: 1.8rem;
-        }
+        margin-bottom: 0.2rem;
+        background: linear-gradient(to right, #fff, $energy-blue);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
       }
       
       .stat-label {
+        display: block;
         font-size: 0.9rem;
-        color: var(--color-text-secondary);
-        margin-top: var(--spacing-xs);
+        color: rgba(255,255,255,0.6);
+        text-transform: uppercase;
+        letter-spacing: 1px;
       }
     }
+    
+    @media (max-width: 768px) {
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      
+      .stat-item {
+        width: 45%;
+      }
+    }
+  }
+}
+
+@keyframes earthRotate {
+  0% {
+    background-position: 0% 0%;
+  }
+  100% {
+    background-position: 200% 0%;
+  }
+}
+
+@keyframes pulsateGlow {
+  0%, 100% {
+    opacity: 0.2;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.3;
+    transform: scale(1.05);
+  }
+}
+
+@keyframes floatArrow {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(10px);
+  }
+}
+
+@keyframes blinkLight {
+  0%, 100% {
+    opacity: 1;
+    box-shadow: 0 0 10px currentColor;
+  }
+  50% {
+    opacity: 0.5;
+    box-shadow: 0 0 5px currentColor;
+  }
+}
+
+@keyframes ringGlow {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+@keyframes rotateEarth {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes shiftAtmosphere {
+  0% {
+    transform: translateX(0) translateY(0);
+    opacity: 0.5;
+  }
+  50% {
+    transform: translateX(5%) translateY(-5%);
+    opacity: 0.7;
+  }
+  100% {
+    transform: translateX(0) translateY(0);
+    opacity: 0.5;
+  }
+}
+
+@keyframes meteorDash {
+  0% {
+    transform: translateX(0) translateY(0) rotate(-45deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  70% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(-200%) translateY(200%) rotate(-45deg);
+    opacity: 0;
   }
 }
