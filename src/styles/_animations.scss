@@ -1,0 +1,65 @@
+// Animation keyframes for our cosmic elements
+
+// Star pulsating animation
+@keyframes pulse {
+  0% { transform: scale(1); opacity: 0.8; }
+  50% { transform: scale(1.2); opacity: 1; }
+  100% { transform: scale(1); opacity: 0.8; }
+}
+
+// Glitch effect
+@keyframes glitch-animation {
+  0% { transform: translate(0); }
+  20% { transform: translate(-3px, 3px); }
+  40% { transform: translate(-3px, -3px); }
+  60% { transform: translate(3px, 3px); }
+  80% { transform: translate(3px, -3px); }
+  100% { transform: translate(0); }
+}
+
+// Nebula flow
+@keyframes nebula-flow {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+// Floating effect for UI elements
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0px); }
+}
+
+// Meteor animation
+@keyframes meteor {
+  0% { 
+    transform: translateX(0) translateY(0) rotate(0deg); 
+    opacity: 1;
+  }
+  70% { opacity: 1; }
+  100% { 
+    transform: translateX(-100vw) translateY(100vh) rotate(25deg); 
+    opacity: 0;
+  }
+}
+
+// Loader star spin
+@keyframes loader-spin {
+  0% { transform: rotate(0deg) scale(1); }
+  50% { transform: rotate(180deg) scale(1.5); }
+  100% { transform: rotate(360deg) scale(1); }
+}
+
+// Energy pulse for buttons and interactive elements
+@keyframes energy-pulse {
+  0% { box-shadow: 0 0 10px rgba(var(--color-energy-cyan), 0.5); }
+  50% { box-shadow: 0 0 20px rgba(var(--color-energy-cyan), 0.8); }
+  100% { box-shadow: 0 0 10px rgba(var(--color-energy-cyan), 0.5); }
+}
+
+// Orbital rotation
+@keyframes orbit {
+  0% { transform: rotate(0deg) translateX(100px) rotate(0deg); }
+  100% { transform: rotate(360deg) translateX(100px) rotate(-360deg); }
+}

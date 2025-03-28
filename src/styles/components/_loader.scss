@@ -1,0 +1,56 @@
+.cosmic-loader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--color-space-black);
+  @include flex(column, center, center);
+  z-index: var(--z-index-modal);
+
+  .loader-star {
+    width: 80px;
+    height: 80px;
+    position: relative;
+    
+    &::before, &::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+    
+    &::before {
+      background: conic-gradient(
+        var(--color-nebula-pink),
+        var(--color-nebula-purple),
+        var(--color-nebula-teal),
+        var(--color-energy-cyan),
+        var(--color-nebula-pink)
+      );
+      border-radius: 50%;
+      animation: loader-spin 2s linear infinite;
+    }
+    
+    &::after {
+      background-color: var(--color-space-black);
+      border-radius: 40%;
+      top: 20%;
+      left: 20%;
+      width: 60%;
+      height: 60%;
+    }
+  }
+  
+  .loader-text {
+    margin-top: var(--spacing-lg);
+    font-family: var(--font-primary);
+    font-size: 1.2rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--color-text-primary);
+    animation: pulse 2s infinite;
+  }
+}

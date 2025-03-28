@@ -1,0 +1,44 @@
+// Cosmic Color Palette
+:root {
+  // Deep space colors
+  --color-space-black: #050814;
+  --color-space-dark: #0A0D1C;
+  --color-space-navy: #141832;
+  
+  // Nebula accent colors
+  --color-nebula-pink: #FF3D81;
+  --color-nebula-purple: #7A5FFF;
+  --color-nebula-teal: #38FFDD;
+  
+  // Energy colors
+  --color-energy-yellow: #FFD046;
+  --color-energy-pink: #FF5B79;
+  --color-energy-cyan: #00FFCA;
+  
+  // Text colors
+  --color-text-primary: #FFFFFF;
+  --color-text-secondary: rgba(255, 255, 255, 0.7);
+  --color-text-tertiary: rgba(255, 255, 255, 0.5);
+  
+  // Fonts
+  --font-primary: 'Orbitron', sans-serif;
+  --font-secondary: 'Roboto', sans-serif;
+  
+  // Spacing
+  --spacing-xs: 0.25rem;
+  --spacing-sm: 0.5rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 2rem;
+  --spacing-xl: 4rem;
+  
+  // Z-indices
+  --z-index-starfield: 0;
+  --z-index-content: 1;
+  --z-index-navbar: 10;
+  --z-index-modal: 100;
+  
+  // Transitions
+  --transition-slow: 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-medium: 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-fast: 0.15s cubic-bezier(0.16, 1, 0.3, 1);
+}

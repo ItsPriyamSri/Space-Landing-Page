@@ -1,0 +1,86 @@
+// Common mixins for our cosmic design system
+
+// Flex container setup
+@mixin flex($direction: row, $justify: flex-start, $align: stretch, $wrap: nowrap) {
+  display: flex;
+  flex-direction: $direction;
+  justify-content: $justify;
+  align-items: $align;
+  flex-wrap: $wrap;
+}
+
+// Glass morphism effect for UI elements
+@mixin cosmic-glass {
+  background: rgba(14, 20, 44, 0.5);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.36);
+}
+
+// Holographic glow effect
+@mixin holographic-glow($color: var(--color-nebula-purple)) {
+  box-shadow: 0 0 15px rgba($color, 0.3), 
+              0 0 45px rgba($color, 0.15),
+              inset 0 0 5px rgba($color, 0.05);
+}
+
+// Space element hover effect
+@mixin cosmic-hover {
+  transition: all var(--transition-medium);
+  
+  &:hover {
+    transform: translateY(-3px) scale(1.02);
+    @include holographic-glow;
+  }
+}
+
+// Responsive breakpoints
+@mixin respond-to($breakpoint) {
+  @if $breakpoint == "small" {
+    @media (max-width: 576px) { @content; }
+  } @else if $breakpoint == "medium" {
+    @media (max-width: 768px) { @content; }
+  } @else if $breakpoint == "large" {
+    @media (max-width: 992px) { @content; }
+  } @else if $breakpoint == "xlarge" {
+    @media (max-width: 1200px) { @content; }
+  }
+}
+
+// Section container
+@mixin section-container {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: var(--spacing-xl) var(--spacing-lg);
+  
+  @include respond-to(medium) {
+    padding: var(--spacing-lg) var(--spacing-md);
+  }
+}
+
+// Glitch animation text
+@mixin glitch-text {
+  position: relative;
+  
+  &::before, &::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.8;
+  }
+  
+  &::before {
+    color: var(--color-nebula-pink);
+    animation: glitch-animation 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) both infinite;
+    animation-delay: 0.1s;
+  }
+  
+  &::after {
+    color: var(--color-energy-cyan);
+    animation: glitch-animation 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) reverse both infinite;
+    animation-delay: 0.2s;
+  }
+}

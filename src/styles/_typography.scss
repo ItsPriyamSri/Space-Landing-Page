@@ -1,0 +1,189 @@
+// Typography styles for our cosmic design system
+
+// Heading styles
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-primary);
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: 0.5px;
+  margin-bottom: var(--spacing-md);
+}
+
+h1 {
+  font-size: 3.5rem;
+  background: linear-gradient(90deg, var(--color-nebula-teal), var(--color-nebula-purple));
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  text-transform: uppercase;
+  
+  @include respond-to(medium) {
+    font-size: 2.8rem;
+  }
+  
+  @include respond-to(small) {
+    font-size: 2.2rem;
+  }
+}
+
+h2 {
+  font-size: 2.8rem;
+  color: var(--color-text-primary);
+  
+  @include respond-to(medium) {
+    font-size: 2.2rem;
+  }
+  
+  @include respond-to(small) {
+    font-size: 1.8rem;
+  }
+}
+
+h3 {
+  font-size: 2.2rem;
+  color: var(--color-text-primary);
+  
+  @include respond-to(medium) {
+    font-size: 1.8rem;
+  }
+  
+  @include respond-to(small) {
+    font-size: 1.5rem;
+  }
+}
+
+h4 {
+  font-size: 1.8rem;
+  color: var(--color-text-primary);
+  
+  @include respond-to(medium) {
+    font-size: 1.5rem;
+  }
+}
+
+h5 {
+  font-size: 1.4rem;
+  color: var(--color-text-primary);
+}
+
+h6 {
+  font-size: 1.2rem;
+  color: var(--color-text-primary);
+}
+
+// Body text
+p {
+  font-family: var(--font-secondary);
+  font-size: 1rem;
+  line-height: 1.6;
+  margin-bottom: var(--spacing-md);
+  color: var(--color-text-secondary);
+  
+  &.lead {
+    font-size: 1.2rem;
+    line-height: 1.7;
+    font-weight: 300;
+  }
+}
+
+// Specialty text
+.cosmic-caption {
+  font-family: var(--font-primary);
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--color-nebula-teal);
+}
+
+.data-text {
+  font-family: var(--font-primary);
+  font-size: 1rem;
+  font-weight: 500;
+  letter-spacing: 1px;
+  color: var(--color-energy-cyan);
+}
+
+// Links
+a {
+  color: var(--color-nebula-teal);
+  transition: color var(--transition-fast);
+  
+  &:hover {
+    color: var(--color-energy-cyan);
+    text-decoration: underline;
+  }
+}
+
+// Buttons
+.cosmic-button {
+  font-family: var(--font-primary);
+  display: inline-block;
+  font-size: 1rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  padding: 0.8rem 1.8rem;
+  border-radius: 4px;
+  transition: all var(--transition-medium);
+  position: relative;
+  overflow: hidden;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, 
+      var(--color-nebula-purple), 
+      var(--color-nebula-teal)
+    );
+    opacity: 1;
+    z-index: -2;
+  }
+  
+  &::after {
+    content: '';
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    right: 2px;
+    bottom: 2px;
+    background: var(--color-space-dark);
+    border-radius: 3px;
+    z-index: -1;
+    transition: all var(--transition-medium);
+  }
+  
+  &:hover, &:focus {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px -5px rgba(var(--color-nebula-purple), 0.6);
+    
+    &::after {
+      opacity: 0.8;
+    }
+  }
+  
+  &:active {
+    transform: translateY(-1px);
+  }
+  
+  &.primary {
+    &::before {
+      background: linear-gradient(45deg, 
+        var(--color-nebula-pink), 
+        var(--color-nebula-purple)
+      );
+    }
+  }
+  
+  &.secondary {
+    &::before {
+      background: linear-gradient(45deg, 
+        var(--color-energy-cyan), 
+        var(--color-nebula-teal)
+      );
+    }
+  }
+}

@@ -1,0 +1,188 @@
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 80px;
+  @include cosmic-glass;
+  z-index: var(--z-index-navbar);
+  
+  .navbar-container {
+    max-width: 1440px;
+    height: 100%;
+    margin: 0 auto;
+    padding: 0 var(--spacing-lg);
+    @include flex(row, space-between, center);
+    
+    @include respond-to(medium) {
+      padding: 0 var(--spacing-md);
+    }
+  }
+  
+  .logo {
+    @include flex(row, flex-start, center);
+    
+    .logo-icon {
+      width: 40px;
+      height: 40px;
+      margin-right: var(--spacing-sm);
+      
+      svg {
+        fill: var(--color-nebula-purple);
+      }
+    }
+    
+    .logo-text {
+      font-family: var(--font-primary);
+      font-size: 1.5rem;
+      font-weight: 800;
+      letter-spacing: 1px;
+      background: linear-gradient(90deg, var(--color-nebula-teal), var(--color-nebula-purple));
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+  }
+  
+  .nav-links {
+    @include flex(row, flex-end, center);
+    
+    .nav-item {
+      margin-left: var(--spacing-lg);
+      
+      a {
+        font-family: var(--font-primary);
+        font-size: 0.875rem;
+        font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        color: var(--color-text-secondary);
+        transition: color var(--transition-fast);
+        
+        &:hover, &.active {
+          color: var(--color-nebula-teal);
+        }
+      }
+    }
+    
+    @include respond-to(large) {
+      display: none;
+    }
+  }
+  
+  .mobile-menu-button {
+    display: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    @include flex(row, center, center);
+    
+    .hamburger {
+      width: 20px;
+      height: 16px;
+      position: relative;
+      
+      span {
+        display: block;
+        position: absolute;
+        height: 2px;
+        width: 100%;
+        background: var(--color-nebula-teal);
+        border-radius: 2px;
+        opacity: 1;
+        left: 0;
+        transform: rotate(0deg);
+        transition: transform var(--transition-medium), opacity var(--transition-fast);
+        
+        &:nth-child(1) {
+          top: 0px;
+        }
+        
+        &:nth-child(2), &:nth-child(3) {
+          top: 7px;
+        }
+        
+        &:nth-child(4) {
+          top: 14px;
+        }
+      }
+    }
+    
+    &.open {
+      .hamburger {
+        span {
+          &:nth-child(1) {
+            top: 7px;
+            width: 0%;
+            left: 50%;
+            opacity: 0;
+          }
+          
+          &:nth-child(2) {
+            transform: rotate(45deg);
+          }
+          
+          &:nth-child(3) {
+            transform: rotate(-45deg);
+          }
+          
+          &:nth-child(4) {
+            top: 7px;
+            width: 0%;
+            left: 50%;
+            opacity: 0;
+          }
+        }
+      }
+    }
+    
+    @include respond-to(large) {
+      display: flex;
+    }
+  }
+  
+  .mobile-menu {
+    display: none;
+    position: fixed;
+    top: 80px;
+    left: 0;
+    width: 100%;
+    height: calc(100vh - 80px);
+    @include cosmic-glass;
+    padding: var(--spacing-lg);
+    transform: translateX(100%);
+    transition: transform var(--transition-medium);
+    
+    &.open {
+      transform: translateX(0);
+    }
+    
+    .mobile-nav-links {
+      @include flex(column, flex-start, center);
+      height: 100%;
+      
+      .mobile-nav-item {
+        margin-bottom: var(--spacing-lg);
+        
+        a {
+          font-family: var(--font-primary);
+          font-size: 1.25rem;
+          font-weight: 500;
+          text-transform: uppercase;
+          letter-spacing: 1px;
+          color: var(--color-text-secondary);
+          transition: color var(--transition-fast);
+          
+          &:hover, &.active {
+            color: var(--color-nebula-teal);
+          }
+        }
+      }
+    }
+    
+    @include respond-to(large) {
+      display: block;
+    }
+  }
+}

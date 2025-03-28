@@ -1,0 +1,349 @@
+.observatory-deck {
+  position: relative;
+  min-height: 100vh;
+  overflow: hidden;
+  
+  .backdrop-stars {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 120%;
+    background-image: 
+      radial-gradient(2px 2px at 20px 30px, var(--color-text-primary), rgba(0,0,0,0)),
+      radial-gradient(2px 2px at 40px 70px, var(--color-text-primary), rgba(0,0,0,0)),
+      radial-gradient(2px 2px at 60px 110px, var(--color-text-primary), rgba(0,0,0,0)),
+      radial-gradient(2px 2px at 80px 150px, var(--color-text-primary), rgba(0,0,0,0)),
+      radial-gradient(2px 2px at 100px 190px, var(--color-text-primary), rgba(0,0,0,0)),
+      radial-gradient(2px 2px at 120px 230px, var(--color-text-primary), rgba(0,0,0,0));
+    background-size: 400px 400px;
+    background-repeat: repeat;
+    opacity: 0.4;
+    pointer-events: none;
+  }
+  
+  .observatory-content {
+    @include section-container;
+    min-height: calc(100vh - 120px);
+    @include flex(row, space-between, center);
+    padding-top: 80px; // Nav height offset
+    position: relative;
+    
+    @include respond-to(large) {
+      flex-direction: column;
+      justify-content: center;
+      padding-top: 120px;
+      padding-bottom: 120px;
+      text-align: center;
+    }
+  }
+  
+  .hero-text {
+    flex: 1;
+    max-width: 600px;
+    z-index: 1;
+    
+    .cosmic-caption {
+      display: block;
+      margin-bottom: var(--spacing-sm);
+    }
+    
+    h1 {
+      position: relative;
+      margin-bottom: var(--spacing-md);
+      text-shadow: 0 0 10px rgba(var(--color-nebula-teal), 0.3);
+      
+      &::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        bottom: -10px;
+        width: 80px;
+        height: 4px;
+        background: linear-gradient(
+          to right,
+          var(--color-nebula-teal),
+          var(--color-nebula-purple)
+        );
+        border-radius: 2px;
+        
+        @include respond-to(large) {
+          left: 50%;
+          transform: translateX(-50%);
+        }
+      }
+    }
+    
+    p.lead {
+      margin-bottom: var(--spacing-lg);
+    }
+    
+    .hero-buttons {
+      @include flex(row, flex-start, center);
+      gap: var(--spacing-md);
+      
+      @include respond-to(large) {
+        justify-content: center;
+      }
+      
+      @include respond-to(small) {
+        flex-direction: column;
+        width: 100%;
+        
+        .cosmic-button {
+          width: 100%;
+          text-align: center;
+        }
+      }
+    }
+  }
+  
+  .planet-visualization {
+    position: relative;
+    width: 420px;
+    height: 420px;
+    
+    @include respond-to(large) {
+      margin-top: var(--spacing-xl);
+    }
+    
+    @include respond-to(medium) {
+      width: 340px;
+      height: 340px;
+    }
+    
+    @include respond-to(small) {
+      width: 280px;
+      height: 280px;
+    }
+    
+    .planet {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 240px;
+      height: 240px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 30% 30%, 
+        var(--color-space-navy),
+        var(--color-space-dark) 60%,
+        var(--color-space-black) 100%
+      );
+      box-shadow: 
+        0 0 60px rgba(var(--color-nebula-purple), 0.2),
+        inset 0 0 40px rgba(0, 0, 0, 0.8);
+      
+      @include respond-to(medium) {
+        width: 200px;
+        height: 200px;
+      }
+      
+      @include respond-to(small) {
+        width: 160px;
+        height: 160px;
+      }
+      
+      &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        background: 
+          radial-gradient(circle at 70% 20%, rgba(var(--color-nebula-teal), 0.3), transparent 20%),
+          radial-gradient(circle at 20% 70%, rgba(var(--color-nebula-purple), 0.3), transparent 25%);
+        opacity: 0.6;
+      }
+      
+      .planet-ring {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) rotateX(75deg);
+        width: 380px;
+        height: 380px;
+        border-radius: 50%;
+        border: 15px solid transparent;
+        opacity: 0.8;
+        background-image: linear-gradient(var(--color-space-dark), var(--color-space-dark)), 
+                          linear-gradient(to right, 
+                            var(--color-nebula-teal), 
+                            var(--color-nebula-purple),
+                            var(--color-nebula-teal)
+                          );
+        background-origin: border-box;
+        background-clip: content-box, border-box;
+        
+        @include respond-to(medium) {
+          width: 300px;
+          height: 300px;
+          border-width: 12px;
+        }
+        
+        @include respond-to(small) {
+          width: 240px;
+          height: 240px;
+          border-width: 10px;
+        }
+      }
+    }
+    
+    .space-station {
+      position: absolute;
+      top: 20%;
+      right: 22%;
+      width: 120px;
+      height: 60px;
+      
+      @include respond-to(medium) {
+        width: 100px;
+        height: 50px;
+      }
+      
+      @include respond-to(small) {
+        width: 80px;
+        height: 40px;
+      }
+      
+      .station-module {
+        position: absolute;
+        background: linear-gradient(to right, 
+          rgba(var(--color-text-primary), 0.9),
+          rgba(var(--color-text-primary), 0.7)
+        );
+        box-shadow: 0 0 8px rgba(var(--color-text-primary), 0.4);
+        
+        &.primary {
+          top: 20%;
+          left: 30%;
+          width: 40%;
+          height: 60%;
+          border-radius: 4px;
+        }
+        
+        &.secondary {
+          top: 10%;
+          left: 10%;
+          width: 20%;
+          height: 80%;
+          border-radius: 3px;
+        }
+        
+        &.tertiary {
+          top: 5%;
+          left: 70%;
+          width: 20%;
+          height: 90%;
+          border-radius: 3px;
+        }
+      }
+      
+      .solar-panels {
+        position: absolute;
+        top: 30%;
+        left: -60%;
+        width: 100%;
+        height: 40%;
+        background: linear-gradient(to right, 
+          rgba(var(--color-energy-cyan), 0.8),
+          rgba(var(--color-nebula-teal), 0.6)
+        );
+        transform: perspective(100px) rotateY(-30deg);
+        
+        &::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background: repeating-linear-gradient(
+            to right,
+            transparent,
+            transparent 10%,
+            rgba(var(--color-text-primary), 0.1) 10%,
+            rgba(var(--color-text-primary), 0.1) 12%
+          );
+        }
+      }
+    }
+  }
+  
+  .scroll-indicator {
+    position: absolute;
+    bottom: var(--spacing-lg);
+    left: 50%;
+    transform: translateX(-50%);
+    @include flex(column, center, center);
+    color: var(--color-text-secondary);
+    font-size: 0.9rem;
+    
+    span {
+      margin-bottom: var(--spacing-xs);
+    }
+    
+    .scroll-arrow {
+      width: 24px;
+      height: 24px;
+      animation: float 2s ease-in-out infinite;
+      
+      svg {
+        width: 100%;
+        height: 100%;
+        stroke: var(--color-nebula-teal);
+      }
+    }
+  }
+  
+  .space-stats {
+    position: relative;
+    z-index: 1;
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: var(--spacing-lg);
+    @include flex(row, space-between, center);
+    @include cosmic-glass;
+    border-radius: 8px;
+    margin-top: -60px;
+    
+    @include respond-to(medium) {
+      flex-wrap: wrap;
+      gap: var(--spacing-lg);
+      text-align: center;
+    }
+    
+    @include respond-to(small) {
+      flex-direction: column;
+      gap: var(--spacing-lg);
+    }
+    
+    .stat-item {
+      @include flex(column, center, center);
+      
+      @include respond-to(medium) {
+        width: calc(50% - var(--spacing-lg) / 2);
+      }
+      
+      .stat-value {
+        font-family: var(--font-primary);
+        font-size: 2.2rem;
+        font-weight: 700;
+        color: var(--color-nebula-teal);
+        line-height: 1;
+        
+        @include respond-to(medium) {
+          font-size: 1.8rem;
+        }
+      }
+      
+      .stat-label {
+        font-size: 0.9rem;
+        color: var(--color-text-secondary);
+        margin-top: var(--spacing-xs);
+      }
+    }
+  }
+}

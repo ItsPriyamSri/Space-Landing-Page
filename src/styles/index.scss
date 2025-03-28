@@ -1,0 +1,52 @@
+// Base styles
+@import 'variables';
+@import 'mixins';
+@import 'reset';
+@import 'animations';
+@import 'typography';
+
+// Component styles
+@import 'components/loader';
+@import 'components/navbar';
+@import 'components/starfield';
+@import 'components/footer';
+
+// Section styles
+@import 'sections/observatory-deck';
+@import 'sections/cosmic-phenomena';
+@import 'sections/expedition-timeline';
+@import 'sections/astronaut-testimonials';
+@import 'sections/space-technology';
+@import 'sections/mission-control';
+
+body {
+  background-color: var(--color-space-black);
+  color: var(--color-text-primary);
+  font-family: var(--font-primary);
+  overflow-x: hidden;
+  margin: 0;
+  padding: 0;
+}
+
+.app {
+  position: relative;
+  min-height: 100vh;
+}
+
+.content {
+  position: relative;
+  z-index: 2;
+}
+
+// Accessibility
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}

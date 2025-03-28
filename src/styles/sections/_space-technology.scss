@@ -1,0 +1,198 @@
+.space-technology {
+  position: relative;
+  padding: var(--spacing-xl) 0;
+  overflow: hidden;
+  
+  .tech-particles {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+      radial-gradient(1px 1px at 50px 80px, var(--color-nebula-teal), rgba(0,0,0,0)),
+      radial-gradient(1px 1px at 150px 180px, var(--color-nebula-purple), rgba(0,0,0,0)),
+      radial-gradient(1px 1px at 250px 280px, var(--color-energy-cyan), rgba(0,0,0,0)),
+      radial-gradient(1px 1px at 350px 380px, var(--color-nebula-pink), rgba(0,0,0,0));
+    background-size: 400px 400px;
+    background-repeat: repeat;
+    opacity: 0.3;
+    z-index: -1;
+    animation: nebula-flow 60s linear infinite;
+  }
+  
+  .space-technology-container {
+    @include section-container;
+  }
+  
+  .section-header {
+    max-width: 800px;
+    margin: 0 auto var(--spacing-xl);
+    text-align: center;
+    
+    .cosmic-caption {
+      display: block;
+      margin-bottom: var(--spacing-sm);
+    }
+    
+    h2 {
+      margin-bottom: var(--spacing-md);
+    }
+    
+    .section-description {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+  }
+  
+  .technologies-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--spacing-lg);
+    margin-bottom: var(--spacing-xl);
+    
+    @include respond-to(large) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    
+    @include respond-to(small) {
+      grid-template-columns: 1fr;
+    }
+  }
+  
+  .technology-card {
+    @include cosmic-glass;
+    border-radius: 12px;
+    overflow: hidden;
+    height: 100%;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+    transition: transform var(--transition-medium), box-shadow var(--transition-medium);
+    
+    &:hover {
+      transform: translateY(-8px) scale(1.02);
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3),
+                  0 0 20px rgba(var(--color-nebula-teal), 0.2);
+      
+      .tech-image {
+        .tech-overlay {
+          opacity: 0.5;
+        }
+      }
+      
+      .tech-specs {
+        .tech-spec {
+          background: rgba(var(--color-nebula-teal), 0.15);
+        }
+      }
+    }
+  }
+  
+  .tech-image {
+    height: 180px;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    
+    .tech-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(
+        to bottom,
+        rgba(5, 8, 20, 0.6),
+        rgba(20, 24, 50, 0.8)
+      );
+      opacity: 0.7;
+      transition: opacity var(--transition-medium);
+    }
+  }
+  
+  .tech-content {
+    padding: var(--spacing-md);
+    
+    h3 {
+      font-size: 1.3rem;
+      margin-bottom: var(--spacing-sm);
+      background: linear-gradient(90deg, var(--color-nebula-teal), var(--color-energy-cyan));
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+    
+    p {
+      font-size: 0.95rem;
+      margin-bottom: var(--spacing-md);
+      color: var(--color-text-secondary);
+      line-height: 1.6;
+    }
+  }
+  
+  .tech-specs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-xs);
+    
+    .tech-spec {
+      padding: var(--spacing-xs) var(--spacing-sm);
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 4px;
+      transition: background var(--transition-medium);
+      
+      span {
+        font-family: var(--font-primary);
+        font-size: 0.8rem;
+        color: var(--color-nebula-teal);
+        letter-spacing: 0.5px;
+      }
+    }
+  }
+  
+  .technology-cta {
+    @include cosmic-glass;
+    border-radius: 12px;
+    padding: var(--spacing-lg);
+    margin-top: var(--spacing-xl);
+    
+    .cta-content {
+      text-align: center;
+      max-width: 700px;
+      margin: 0 auto;
+      
+      h3 {
+        font-size: 1.8rem;
+        margin-bottom: var(--spacing-md);
+        
+        @include respond-to(small) {
+          font-size: 1.5rem;
+        }
+      }
+      
+      p {
+        font-size: 1.1rem;
+        margin-bottom: var(--spacing-lg);
+        color: var(--color-text-secondary);
+        
+        @include respond-to(small) {
+          font-size: 1rem;
+        }
+      }
+    }
+    
+    .cta-buttons {
+      display: flex;
+      justify-content: center;
+      gap: var(--spacing-md);
+      
+      @include respond-to(small) {
+        flex-direction: column;
+        
+        .cosmic-button {
+          width: 100%;
+          text-align: center;
+        }
+      }
+    }
+  }
+}
