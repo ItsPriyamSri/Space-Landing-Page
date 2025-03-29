@@ -1,9 +1,113 @@
-import React, { useEffect, useRef } from 'react';
-import { motion } from 'framer-motion';
+import React, { useEffect, useRef, useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { gsap } from 'gsap';
 
 const SpaceTechnology = () => {
   const sectionRef = useRef(null);
+  const [showClassified, setShowClassified] = useState({ visible: false, position: { x: 0, y: 0 }, name: "" });
+  
+  const handleCardClick = (e, name) => {
+    // Get position for the popup
+    const rect = e.currentTarget.getBoundingClientRect();
+    setShowClassified({
+      visible: true,
+      position: { 
+        x: rect.left + rect.width / 2, 
+        y: rect.top
+      },
+      name: name
+    });
+    
+    // Auto hide after 2 seconds
+    setTimeout(() => {
+      setShowClassified(prev => ({ ...prev, visible: false }));
+    }, 2000);
+  };
+  
+  // Function to handle downloading specs
+  const handleDownloadSpecs = () => {
+    // Create easter egg content
+    const easterEggContent = `
+========================================
+COSMIC GATEWAY - CLASSIFIED SPECIFICATIONS
+========================================
+
+TO: Authorized Cosmic Gateway Personnel
+CLASSIFICATION: COSMIC-TOP-SECRET
+DATE: ${new Date().toLocaleDateString()}
+
+The following information is provided on a need-to-know basis only.
+
+TECHNOLOGY SPECIFICATIONS:
+--------------------------
+
+1. QUANTUM NAVIGATION SYSTEM
+   - Actually uses tiny space hamsters running in quantum wheels
+   - Accuracy: Can target a photon in another galaxy (when the hamsters aren't napping)
+   - Fun fact: Named after "Mr. Whiskers," the first hamster to achieve quantum entanglement
+
+2. GRAVITATIONAL SHIELD
+   - Powered by the collective dreams of sleeping astronauts
+   - Each shield is calibrated using the exact weight of 42 space tacos
+   - Warning: May cause spontaneous floating of loose items and occasional existential crises
+
+3. ANTIMATTER PROPULSION
+   - Contains exactly 0.000001g of antimatter (or so we tell the investors)
+   - The "matter-antimatter annihilation chamber" is actually a glorified microwave
+   - Efficiency: 99.6% (on paper); 47% (in reality); 12% (after the warranty expires)
+
+4. NEURAL INTERFACE
+   - Side effects may include: spontaneous telepathy with spacecraft, dreams about being a spaceship
+   - Not compatible with tinfoil hats (for obvious reasons)
+   - Contrary to rumors, it CANNOT read your inappropriate thoughts about alien species
+
+5. RADIATION ABSORPTION MATRIX
+   - Made from the same material as cosmic background radiation, just... reversed
+   - Doubles as an excellent coffee warmer
+   - Powered by harnessing the energy of dad jokes told by astronauts
+
+6. ATMOSPHERIC SYNTHESIZER
+   - Produces exactly 7 unique smells, including "New Spaceship," "Cosmic Rainforest," and "Dave's Gym Socks"
+   - Contains actual cloud samples from Venus (which smell surprisingly like burnt toast)
+   - Maintenance requires singing to it softly once per month
+
+HIDDEN FEATURES:
+---------------
+- The "emergency evacuation" button also makes a perfect espresso
+- There's a secret karaoke room behind maintenance hatch C-137
+- All ships have a built-in black box that only records embarrassing conversations
+
+EMERGENCY PROTOCOLS:
+-------------------
+1. In case of alien encounter: Smile, wave, offer snacks
+2. If time-space continuum ruptures: Have you tried turning it off and on again?
+3. Encountering your past/future self: No autographs, no spoilers
+
+Remember, space travel is perfectly safe* 
+(* Definition of "safe" may vary depending on current proximity to black holes, supernovas, or cafeteria on taco Tuesday)
+
+THIS DOCUMENT WILL SELF-DESTRUCT AFTER READING
+(just kidding, it's just a text file)
+
+PS: If you found this easter egg, congratulations! You're officially a cosmic explorer. We've hidden 5 more throughout the website. Happy hunting!
+`;
+    
+    // Create a blob with the content
+    const blob = new Blob([easterEggContent], { type: 'text/plain' });
+    
+    // Create a temporary link element to trigger the download
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = 'COSMIC-GATEWAY-CLASSIFIED-SPECS.txt';
+    
+    // Append to the body, click to download, and remove
+    document.body.appendChild(link);
+    link.click();
+    
+    // Clean up
+    URL.revokeObjectURL(link.href);
+    document.body.removeChild(link);
+  };
   
   const technologies = [
     {
@@ -110,6 +214,7 @@ const SpaceTechnology = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-50px" }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
+              onClick={(e) => handleCardClick(e, tech.name)}
             >
               <div 
                 className="tech-image" 
@@ -143,12 +248,32 @@ const SpaceTechnology = () => {
             <h3>Want to learn more about our technology?</h3>
             <p>Download our comprehensive technical documentation or schedule a virtual tour of our research facilities.</p>
             <div className="cta-buttons">
-              <a href="#" className="cosmic-button primary">Download Specs</a>
+              <a href="#" className="cosmic-button primary" onClick={(e) => {
+                e.preventDefault(); 
+                handleDownloadSpecs();
+              }}>Download Specs</a>
               <a href="#mission-control" className="cosmic-button secondary">Schedule Tour</a>
             </div>
           </div>
         </motion.div>
       </div>
+      <AnimatePresence>
+        {showClassified.visible && (
+          <motion.div
+            className="classified-popup"
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            style={{ 
+              position: 'fixed',
+              left: `${showClassified.position.x}px`, 
+              top: `${showClassified.position.y}px` 
+            }}
+          >
+            <span>Sorry, that's classified.</span>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </section>
   );
 };

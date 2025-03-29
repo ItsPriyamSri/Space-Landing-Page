@@ -1,9 +1,35 @@
-import React, { useEffect, useRef } from 'react';
-import { motion } from 'framer-motion';
+import React, { useEffect, useRef, useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { gsap } from 'gsap';
 
 const CosmicPhenomena = () => {
   const sectionRef = useRef(null);
+  const [popupInfo, setPopupInfo] = useState({ visible: false, title: "", reason: "" });
+  
+  const funnyReasons = {
+    "Neutron Stars": "our last tour guide getting squished flatter than a pancake by the gravity. He now slides under doors instead of using doorknobs, which HR classified as 'an unfortunate workplace modification.' Exploration suspended until we figure out how to avoid becoming human sticky notes.",
+    "Black Holes": "losing three perfectly good spaceships last month. The company suggestion box is now full of notes asking 'where's my spaceship?' and accounting keeps listing them as 'temporarily misplaced assets.' Exploration on hold until we can afford to lose more stuff forever.",
+    "Nebulae": "our entire crew developing what our doctor calls 'space glitter lung' from all the cosmic dust. The captain hasn't stopped sneezing for two weeks and his sneezes now sparkle in the dark. Exploration postponed until everyone stops leaving shimmer trails in the hallways.",
+    "Supernovae": "management borrowing all our heat protection suits for their 'team building hot pepper eating contest.' Turns out executives needed them more than astronauts facing star explosions. Exploration delayed until someone explains to the CEO that Ghost Peppers and exploding stars require different safety equipment."
+  };
+  
+  
+  const handleExploreClick = (e, title) => {
+    e.preventDefault();
+    setPopupInfo({ 
+      visible: true, 
+      title: title, 
+      reason: funnyReasons[title] 
+    });
+    setTimeout(() => {
+      document.addEventListener('click', closePopup);
+    }, 100);
+  };
+  
+  const closePopup = () => {
+    setPopupInfo({ visible: false, title: "", reason: "" });
+    document.removeEventListener('click', closePopup);
+  };
   
   const phenomena = [
     {
@@ -94,7 +120,7 @@ const CosmicPhenomena = () => {
                 <div className="card-content">
                   <h3>{item.title}</h3>
                   <p>{item.description}</p>
-                  <a href="#" className="card-link" style={{ color: item.color }}>
+                  <a href="#" className="card-link" style={{ color: item.color }} onClick={(e) => handleExploreClick(e, item.title)}>
                     Explore
                     <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
@@ -118,6 +144,16 @@ const CosmicPhenomena = () => {
           </motion.div>
         </div>
       </div>
+      <AnimatePresence>
+        {popupInfo.visible && (
+          <motion.div className="popup" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+            <div className="popup-inner">
+              <h3>{popupInfo.title}</h3>
+              <p>{popupInfo.reason}</p>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </section>
   );
 };
