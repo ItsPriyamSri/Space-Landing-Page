@@ -461,7 +461,7 @@
       transition: all 0.3s ease;
       cursor: pointer;
       
-      /* Add cosmic border on hover instead of glow */
+      /* Add cosmic gradient border on hover */
       &::before {
         content: '';
         position: absolute;
@@ -479,26 +479,7 @@
         mask-composite: exclude;
         opacity: 0;
         transition: opacity 0.3s ease;
-      }
-      
-      /* Replace glow with cosmic pattern background */
-      &::after {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-image: 
-          radial-gradient(1px 1px at 10px 10px, rgba(56, 255, 221, 0.3), rgba(0,0,0,0)),
-          radial-gradient(1px 1px at 20px 30px, rgba(122, 95, 255, 0.3), rgba(0,0,0,0)),
-          radial-gradient(1px 1px at 30px 10px, rgba(255, 107, 243, 0.3), rgba(0,0,0,0)),
-          radial-gradient(1px 1px at 40px 40px, rgba(56, 255, 221, 0.3), rgba(0,0,0,0));
-        background-size: 50px 50px;
-        opacity: 0;
-        z-index: -1;
-        transition: opacity 0.3s ease, transform 0.5s ease;
-        transform: scale(1.5);
+        z-index: 0; /* Ensure border stays behind content */
       }
       
       &:hover {
@@ -506,16 +487,21 @@
         
         &::before {
           opacity: 1;
-        }
-        
-        &::after {
-          opacity: 0.1;
-          transform: scale(1);
+          box-shadow: $strong-glow, 0 0 20px rgba($nebula-pink, 0.6), 0 0 30px rgba($energy-blue, 0.5);
         }
         
         .stat-value {
-          /* Add pop effect on hover */
-          animation: statPop 0.5s ease forwards;
+          /* Only animate the content, not the container */
+          transform: none;
+          
+          span {
+            display: inline-block;
+            animation: statPop 0.5s ease forwards;
+          }
+          
+          &::after {
+            animation: statShine 1.5s ease-in-out infinite;
+          }
         }
         
         .stat-label {
@@ -535,13 +521,13 @@
         position: relative;
         transition: all 0.3s ease;
         
-        /* Add a shimmering effect instead of glow */
+        /* Add a shimmering effect */
         &::after {
           content: '';
           position: absolute;
           top: 0;
-          left: 0;
-          width: 100%;
+          left: -100%;
+          width: 50%;
           height: 100%;
           background: linear-gradient(
             90deg, 
@@ -549,37 +535,13 @@
             rgba(255,255,255,0.8) 50%, 
             rgba(255,255,255,0) 100%
           );
-          background-size: 200% 100%;
-          opacity: 0;
-          transition: opacity 0.3s ease;
+          opacity: 0.8;
+          transform: skewX(-20deg);
         }
         
         /* Add counter animation effect */
         &.animated-number {
           position: relative;
-          
-          &::before {
-            content: '0';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(to right, #fff, $energy-blue);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            opacity: 0;
-          }
-        }
-        
-        /* Enhanced hover animation replacing glow */
-        &:hover {
-          transform: scale(1.1);
-          
-          &::after {
-            opacity: 1;
-            animation: statShine 1.5s ease-in-out infinite;
-          }
         }
       }
       

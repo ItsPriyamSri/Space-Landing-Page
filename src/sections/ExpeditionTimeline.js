@@ -168,7 +168,7 @@ const ExpeditionTimeline = () => {
           </div>
           <div className="data-point">
             <span className="data-label">Distance Traveled</span>
-            <span className="data-value highlight-pulse">14.2 Light Years</span>
+            <span className="data-value highlight-pulse">16+ Light Years</span>
           </div>
         </motion.div>
       </div>
