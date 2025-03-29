@@ -6,6 +6,7 @@ import './styles/App.scss';
 import StarField from './components/StarField';
 import Navbar from './components/Navbar';
 import CursorParticles from './components/CursorParticles';
+import Loader from './components/Loader'; // Import the dedicated Loader component
 import ObservatoryDeck from './sections/ObservatoryDeck';
 import CosmicPhenomena from './sections/CosmicPhenomena';
 import ExpeditionTimeline from './sections/ExpeditionTimeline';
@@ -27,12 +28,7 @@ function App() {
   }, []);
 
   if (loading) {
-    return (
-      <div className="cosmic-loader">
-        <div className="loader-star"></div>
-        <p className="loader-text">Entering Cosmic Gateway...</p>
-      </div>
-    );
+    return <Loader isLoading={loading} />; // Use the dedicated Loader component
   }
 
   return (

@@ -58,16 +58,23 @@ $nebula-teal: #38FFDD;
 $energy-yellow: #FFD046;
 $energy-pink: #FF5B79;
 $energy-cyan: #00FFCA;
-$energy-blue: #38DDFF; // Adding the missing variable that was referenced
+$energy-blue: #38DDFF; 
 
 // Text colors
 $text-primary: #FFFFFF;
 $text-secondary: rgba(255, 255, 255, 0.7);
 $text-tertiary: rgba(255, 255, 255, 0.5);
 
-// Cosmic gradients for backgrounds and elements
+// Streamlined gradient system (reduced to 3 key gradients)
 $cosmic-gradient-1: linear-gradient(135deg, $nebula-purple 0%, $nebula-pink 100%);
 $cosmic-gradient-2: linear-gradient(90deg, $energy-blue 0%, $nebula-teal 100%);
-$cosmic-gradient-3: linear-gradient(45deg, $space-navy 0%, $nebula-purple 100%);
-$cosmic-gradient-4: linear-gradient(180deg, $energy-yellow 0%, $energy-pink 100%);
-$cosmic-gradient-5: radial-gradient(circle, $nebula-purple 0%, $space-navy 80%);
+
+// Our three main text gradients (consistent application)
+$cosmic-purple-gradient: linear-gradient(to right, $nebula-purple, $energy-blue, $nebula-teal);
+$nebula-sunset-gradient: linear-gradient(to right, $nebula-pink, $energy-yellow, $nebula-pink);
+$galactic-core-gradient: linear-gradient(to right, $energy-blue, $nebula-purple, $space-navy);
+
+// Enhanced glow effects
+$soft-glow: 0 0 10px rgba($nebula-teal, 0.3), 0 0 20px rgba($nebula-purple, 0.2);
+$medium-glow: 0 0 15px rgba($nebula-teal, 0.5), 0 0 30px rgba($nebula-purple, 0.3);
+$strong-glow: 0 0 20px rgba($nebula-teal, 0.7), 0 0 40px rgba($nebula-purple, 0.5);

@@ -1,6 +1,6 @@
 .astronaut-testimonials {
   position: relative;
-  padding: var(--spacing-xl) 0;
+  padding: var(--spacing-xl) 0 var(--spacing-md);
   overflow: hidden;
   
   &::before {
@@ -37,6 +37,16 @@
     
     h2 {
       margin-bottom: var(--spacing-md);
+      background: $cosmic-purple-gradient;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: $soft-glow;
+      transition: all 0.3s ease;
+      
+      &:hover {
+        text-shadow: $medium-glow;
+        transform: scale(1.02);
+      }
     }
     
     .section-description {
@@ -132,7 +142,15 @@
       h4 {
         font-size: 1.1rem;
         margin-bottom: 4px;
-        color: var(--color-text-primary);
+        background: $nebula-sunset-gradient;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        transition: all 0.3s ease;
+        
+        &:hover {
+          text-shadow: $soft-glow;
+          transform: translateX(2px);
+        }
       }
       
       span {

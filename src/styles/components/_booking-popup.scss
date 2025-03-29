@@ -1,0 +1,154 @@
+.booking-popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba($space-black, 0.85);
+  backdrop-filter: blur(8px);
+  z-index: var(--z-index-modal);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.booking-popup {
+  width: 90%;
+  max-width: 800px;
+  border-radius: 16px;
+  overflow: hidden;
+  background: $space-navy;
+  border: 1px solid rgba($nebula-teal, 0.3);
+  box-shadow: 0 0 40px rgba($nebula-purple, 0.4);
+  
+  .popup-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 400px;
+    
+    @include respond-to(medium) {
+      grid-template-columns: 1fr;
+    }
+  }
+  
+  .popup-spaceship {
+    position: relative;
+    margin-bottom: 20px;
+    
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    
+    .tractor-beam {
+      position: absolute;
+      top: 60%;
+      left: 50%;
+      width: 100px;
+      height: 200px;
+      transform: translateX(-50%);
+      background: linear-gradient(to bottom, rgba(56, 255, 221, 0.7), rgba(56, 255, 221, 0));
+      opacity: 0.6;
+      border-radius: 50% 50% 0 0;
+      z-index: -1;
+      overflow: hidden;
+      
+      .beam-particles {
+        width: 100%;
+        height: 100%;
+        background-image: radial-gradient(circle, rgba(255, 255, 255, 0.8) 1px, transparent 1px);
+        background-size: 10px 10px;
+        animation: beamParticlesFloat 2s infinite linear;
+      }
+    }
+  }
+  
+  .popup-message {
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    
+    h2 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      background: $cosmic-purple-gradient;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: $soft-glow;
+      
+      @include respond-to(small) {
+        font-size: 1.5rem;
+      }
+    }
+    
+    p {
+      font-size: 1.1rem;
+      margin-bottom: 1rem;
+      color: $text-secondary;
+      
+      @include respond-to(small) {
+        font-size: 1rem;
+      }
+    }
+    
+    button {
+      margin: 1.5rem 0;
+      align-self: center;
+    }
+    
+    .terms-text {
+      font-size: 0.75rem;
+      color: $text-tertiary;
+      font-style: italic;
+      margin-top: auto;
+      text-align: center;
+    }
+  }
+}
+
+@keyframes floatPopupShip {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-15px);
+  }
+}
+
+@keyframes pulseTractorBeam {
+  0%, 100% {
+    opacity: 0.7;
+    width: 80px;
+  }
+  50% {
+    opacity: 0.9;
+    width: 90px;
+  }
+}
+
+@keyframes pulseStar {
+  0%, 100% {
+    opacity: 0.1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.3;
+    transform: scale(1.1);
+  }
+}
+
+@keyframes beamParticlesFloat {
+  0% {
+    top: 0;
+    opacity: 0;
+  }
+  20% {
+    opacity: 0.8;
+  }
+  100% {
+    top: 90%;
+    opacity: 0;
+  }
+}

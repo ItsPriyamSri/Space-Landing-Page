@@ -37,6 +37,16 @@
     
     h2 {
       margin-bottom: var(--spacing-md);
+      background: $cosmic-purple-gradient;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: $soft-glow;
+      transition: all 0.3s ease;
+      
+      &:hover {
+        text-shadow: $medium-glow;
+        transform: scale(1.02);
+      }
     }
     
     .section-description {
@@ -115,10 +125,16 @@
     h3 {
       font-size: 1.3rem;
       margin-bottom: var(--spacing-sm);
-      background: linear-gradient(90deg, var(--color-nebula-teal), var(--color-energy-cyan));
+      background: $galactic-core-gradient;
       background-clip: text;
       -webkit-background-clip: text;
-      color: transparent;
+      -webkit-text-fill-color: transparent;
+      transition: all 0.3s ease;
+      
+      &:hover {
+        text-shadow: $soft-glow;
+        transform: translateX(3px);
+      }
     }
     
     p {

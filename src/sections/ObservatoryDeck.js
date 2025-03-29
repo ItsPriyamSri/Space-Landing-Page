@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -10,8 +10,18 @@ const ObservatoryDeck = () => {
   const sectionRef = useRef(null);
   const astronautRef = useRef(null);
   const spaceshipRef = useRef(null);
+  const nebulaRef = useRef(null); // Add a ref for the nebula background
+  const [activeTooltip, setActiveTooltip] = useState(null);
   
   useEffect(() => {
+    // Add specific code to ensure the nebula background is loaded and visible
+    if (nebulaRef.current) {
+      // Force a repaint of the nebula element to ensure it's displayed
+      nebulaRef.current.style.display = 'none';
+      void nebulaRef.current.offsetHeight; // Trigger a reflow
+      nebulaRef.current.style.display = 'block';
+    }
+    
     // Create random UFOs
     const createUFOs = () => {
       const container = document.querySelector('.shooting-stars-container');
@@ -20,14 +30,15 @@ const ObservatoryDeck = () => {
       // Clear existing objects
       container.innerHTML = '';
       
-      // Create 3 UFOs with random delays
-      for (let i = 0; i < 3; i++) {
-        const ufo = document.createElement('div');
-        ufo.className = 'ufo';
-        // Set random delay variable for each UFO (between 0 and 20s)
-        ufo.style.setProperty('--delay', Math.random() * 20);
-        container.appendChild(ufo);
-      }
+      // Create only 1 UFO with random delay (reduced from 3)
+      const ufo = document.createElement('div');
+      ufo.className = 'ufo';
+      // Set random delay variable for the UFO (between 0 and 20s)
+      ufo.style.setProperty('--delay', Math.random() * 20);
+      
+      // No tooltip added
+      
+      container.appendChild(ufo);
     };
     
     // Initialize UFOs
@@ -54,43 +65,66 @@ const ObservatoryDeck = () => {
       );
     }
     
-    // Astronaut initial subtle animation (constant rotation in space)
+    // Clean animation for astronaut with only drift and spin - no clashing effects
     if (astronautRef.current) {
       const astronaut = astronautRef.current;
       
-      // Set initial position to the right of the spaceship
+      // Set initial position
       gsap.set(astronaut, {
-        x: 80,           // Start to the right of the spaceship
-        y: -40,          // Higher position (negative value moves it up)
+        x: 80,
+        y: -40,
         rotation: 0,
-        opacity: 1
+        opacity: 1,
+        scale: 1
       });
       
-      // Astronaut continuous slow subtle rotation and movement
+      // Remove any existing animations that might be conflicting
+      gsap.killTweensOf(astronaut);
+      
+      // Create a single clean animation that combines drift and spin
       gsap.to(astronaut, {
-        rotation: 360,
-        repeat: -1,
-        duration: 12,
-        ease: "linear" // Constant speed with no easing for realistic space rotation
-      });
-      
-      // Astronaut drifting away on scroll
-      const driftTimeline = gsap.timeline({
-        scrollTrigger: {
-          trigger: section,
-          start: "top top",
-          end: "30% top",
-          scrub: 1.5
+        x: 500,          // Drift to the right
+        y: -250,         // Drift upward
+        rotation: 360,   // Spin exactly once during the drift
+        scale: 0.2,      // Shrink as it moves away (perspective effect)
+        opacity: 0,      // Fade out as it drifts
+        duration: 40,    // Slow animation for subtlety
+        ease: "power1.inOut", // Smooth easing
+        onComplete: function() {
+          // Reset for next cycle
+          gsap.set(astronaut, {
+            x: -100,       // Start off-screen to the left
+            y: 100,        // Start lower
+            rotation: 0,   // Reset rotation
+            scale: 0.2,    // Start small
+            opacity: 0,    // Start invisible
+          });
+          
+          // Return to starting position with animation
+          gsap.to(astronaut, {
+            x: 80,
+            y: -40,
+            scale: 1,
+            opacity: 1,
+            duration: 5,
+            delay: 2,
+            onComplete: function() {
+              // Restart the drift and spin animation
+              gsap.to(astronaut, {
+                x: 500,
+                y: -250,
+                rotation: 360,
+                scale: 0.2,
+                opacity: 0,
+                duration: 40,
+                ease: "power1.inOut",
+                repeat: -1,    // Infinite repeats
+                repeatDelay: 7, // Wait before repeating
+                yoyo: false    // Don't reverse animation
+              });
+            }
+          });
         }
-      });
-      
-      driftTimeline.to(astronaut, {
-        x: 300,          // Drift further to the right
-        y: -150,         // And up
-        scale: 0.4,
-        opacity: 0,
-        duration: 5,
-        ease: "power1.in" // Gentle acceleration as astronaut drifts away
       });
     }
     
@@ -104,7 +138,7 @@ const ObservatoryDeck = () => {
       <div className="cosmic-background">
         <div className="sun-glow"></div>
         <div className="backdrop-stars"></div>
-        <div className="nebula-clouds"></div>
+        <div className="nebula-clouds" ref={nebulaRef}></div>
         <div className="shooting-stars-container">
           {/* UFOs will be dynamically added here */}
         </div>
@@ -141,12 +175,28 @@ const ObservatoryDeck = () => {
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 1, delay: 0.8 }}
         >
-          <div className="spaceship" ref={spaceshipRef}>
+          <div 
+            className="spaceship" 
+            ref={spaceshipRef}
+            onMouseEnter={() => setActiveTooltip('spaceship')}
+            onMouseLeave={() => setActiveTooltip(null)}
+          >
             <img src="/images/Spaceship.png" alt="Cosmic spaceship" />
+            {activeTooltip === 'spaceship' && (
+              <div className="tooltip">STELLAR VOYAGER MARK VII</div>
+            )}
           </div>
           
-          <div className="astronaut-rocket" ref={astronautRef}>
+          <div 
+            className="astronaut-rocket" 
+            ref={astronautRef}
+            onMouseEnter={() => setActiveTooltip('astronaut')}
+            onMouseLeave={() => setActiveTooltip(null)}
+          >
             <img src="/images/astronaut.png" alt="Astronaut with rocket" />
+            {activeTooltip === 'astronaut' && (
+              <div className="tooltip">Distressed Astronaut</div>
+            )}
           </div>
         </motion.div>
         
@@ -162,20 +212,20 @@ const ObservatoryDeck = () => {
       
       <div className="space-stats">
         <div className="stat-item">
-          <span className="stat-value">250+</span>
-          <span className="stat-label">Days in Orbit</span>
+          <span className="stat-value animated-number" data-value="250">250+</span>
+          <span className="stat-label days">Days in Orbit</span>
         </div>
         <div className="stat-item">
-          <span className="stat-value">15K+</span>
-          <span className="stat-label">Star Systems</span>
+          <span className="stat-value animated-number" data-value="15">15K+</span>
+          <span className="stat-label systems">Star Systems</span>
         </div>
         <div className="stat-item">
-          <span className="stat-value">98%</span>
-          <span className="stat-label">Traveler Rating</span>
+          <span className="stat-value animated-number" data-value="98">98%</span>
+          <span className="stat-label rating">Traveler Rating</span>
         </div>
         <div className="stat-item">
           <span className="stat-value">24/7</span>
-          <span className="stat-label">Cosmic Support</span>
+          <span className="stat-label support">Cosmic Support</span>
         </div>
       </div>
     </section>

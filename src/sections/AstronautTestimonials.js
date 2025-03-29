@@ -13,7 +13,7 @@ const AstronautTestimonials = () => {
       name: "Dr. Samantha Chen",
       role: "Chief Astrophysicist",
       quote: "The observatory deck offers an unparalleled view of the cosmos. I've spent decades studying distant galaxies, but nothing compares to witnessing them directly from our space station's viewport.",
-      image: "https://images.unsplash.com/photo-1564564321837-a57b7070ac4f?q=80&w=2952&auto=format&fit=crop",
+      image: "https://thumbs.dreamstime.com/b/young-beautiful-woman-wearing-glasses-closeup-outdoors-34978361.jpg",
       rating: 5
     },
     {
@@ -38,6 +38,14 @@ const AstronautTestimonials = () => {
       role: "Space Tourist",
       quote: "As someone who dreamed of space since childhood, this experience exceeded every expectation. The staff's professionalism, the station's comfort, and the views... worth every penny of the journey.",
       image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=2787&auto=format&fit=crop",
+      rating: 5
+    },
+    {
+      id: 5,
+      name: "Dave Parker",
+      role: "Totally Real Alien",
+      quote: "Much better than my previous abduction experiences. Will recommend to all lifeforms in Sector 7. The human staff didn't even notice my obviously authentic alien appearance. P.S. Your coffee is far superior to our galactic goo.",
+      image: "https://m.media-amazon.com/images/I/61iXhxeNvGL._AC_UY1100_.jpg",
       rating: 5
     }
   ];

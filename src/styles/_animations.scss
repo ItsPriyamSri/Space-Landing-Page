@@ -76,8 +76,185 @@
   100% { box-shadow: 0 0 10px rgba(var(--color-energy-cyan), 0.5); }
 }
 
-// Orbital rotation
+// Orbit animation for planets and satellites
 @keyframes orbit {
-  0% { transform: rotate(0deg) translateX(100px) rotate(0deg); }
-  100% { transform: rotate(360deg) translateX(100px) rotate(-360deg); }
+  0% {
+    transform: rotate(0deg) translateX(var(--orbit-distance)) rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg) translateX(var(--orbit-distance)) rotate(-360deg);
+  }
+}
+
+// Hover lift effect for cards and interactive elements
+@keyframes hoverLift {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+// Glowing pulse effect for cosmic elements
+@keyframes cosmicPulse {
+  0%, 100% {
+    box-shadow: 0 0 10px var(--glow-color, rgba(56, 255, 221, 0.5)),
+                0 0 20px var(--glow-color, rgba(56, 255, 221, 0.3));
+  }
+  50% {
+    box-shadow: 0 0 20px var(--glow-color, rgba(56, 255, 221, 0.8)),
+                0 0 30px var(--glow-color, rgba(56, 255, 221, 0.5)),
+                0 0 40px var(--glow-color, rgba(56, 255, 221, 0.3));
+  }
+}
+
+// Terminal typing effect
+@keyframes blinkCursor {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
+// Starfield twinkling
+@keyframes twinkle {
+  0%, 100% {
+    opacity: 0.1;
+    transform: scale(0.8);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.2);
+  }
+}
+
+// Rocket launch effect
+@keyframes rocketLaunch {
+  0% {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-500px) scale(0.5);
+    opacity: 0;
+  }
+}
+
+// Cosmic button pulse animation
+@keyframes pulseButton {
+  0%, 100% {
+    box-shadow: 0 0 0 rgba(122, 95, 255, 0.5);
+  }
+  50% {
+    box-shadow: 0 0 15px rgba(122, 95, 255, 0.8);
+  }
+}
+
+// Space station rotation
+@keyframes stationRotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+// Nebula cloud movement
+@keyframes nebulaFlow {
+  0% {
+    background-position: 0% 0%;
+  }
+  100% {
+    background-position: 100% 100%;
+  }
+}
+
+// Asteroid belt movement
+@keyframes asteroidBelt {
+  0% {
+    transform: translateX(-5%) rotate(0deg);
+  }
+  100% {
+    transform: translateX(5%) rotate(360deg);
+  }
+}
+
+// Warp speed effect
+@keyframes warpSpeed {
+  0% {
+    opacity: 0;
+    transform: scale(0.1) translateZ(-500px);
+  }
+  70% {
+    opacity: 1;
+    transform: scale(0.8) translateZ(-250px);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(2) translateZ(0px);
+  }
+}
+
+// Terminal scanlines animation
+@keyframes scanlines {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 0 100%;
+  }
+}
+
+// Nebula glow effect for terminal
+@keyframes nebulaGlow {
+  0% {
+    opacity: 0.5;
+    background-position: 0% 0%;
+  }
+  50% {
+    opacity: 0.8;
+  }
+  100% {
+    opacity: 0.5;
+    background-position: 100% 100%;
+  }
+}
+
+// Blinking terminal status indicator
+@keyframes terminalBlink {
+  0% {
+    opacity: 0.4;
+    transform: scale(0.8);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1.1);
+  }
+}
+
+// Console light pulse effect
+@keyframes consoleLightPulse {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+// Button loading animation
+@keyframes buttonLoading {
+  0% {
+    left: -100%;
+  }
+  100% {
+    left: 100%;
+  }
 }

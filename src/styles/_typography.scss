@@ -127,6 +127,9 @@ a {
   transition: all var(--transition-medium);
   position: relative;
   overflow: hidden;
+  color: var(--color-text-primary);
+  border: none;
+  cursor: pointer;
   
   &::before {
     content: '';
@@ -140,29 +143,14 @@ a {
       var(--color-nebula-teal)
     );
     opacity: 1;
-    z-index: -2;
-  }
-  
-  &::after {
-    content: '';
-    position: absolute;
-    top: 2px;
-    left: 2px;
-    right: 2px;
-    bottom: 2px;
-    background: var(--color-space-dark);
-    border-radius: 3px;
     z-index: -1;
-    transition: all var(--transition-medium);
   }
   
   &:hover, &:focus {
     transform: translateY(-3px);
-    box-shadow: 0 10px 25px -5px rgba(var(--color-nebula-purple), 0.6);
-    
-    &::after {
-      opacity: 0.8;
-    }
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3),
+                0 0 15px rgba(var(--color-nebula-purple-rgb), 0.5);
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.7);
   }
   
   &:active {
@@ -170,20 +158,26 @@ a {
   }
   
   &.primary {
-    &::before {
-      background: linear-gradient(45deg, 
-        var(--color-nebula-pink), 
-        var(--color-nebula-purple)
-      );
-    }
+    background: linear-gradient(45deg, 
+      var(--color-nebula-pink), 
+      var(--color-nebula-purple)
+    );
   }
   
   &.secondary {
-    &::before {
-      background: linear-gradient(45deg, 
-        var(--color-energy-cyan), 
-        var(--color-nebula-teal)
-      );
+    background: linear-gradient(45deg, 
+      var(--color-energy-cyan), 
+      var(--color-nebula-teal)
+    );
+  }
+  
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    
+    &:hover {
+      transform: none;
+      box-shadow: none;
     }
   }
 }

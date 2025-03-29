@@ -160,15 +160,15 @@ const ExpeditionTimeline = () => {
         >
           <div className="data-point">
             <span className="data-label">Years of Exploration</span>
-            <span className="data-value">25+</span>
+            <span className="data-value highlight-pulse">25+</span>
           </div>
           <div className="data-point">
             <span className="data-label">Missions Completed</span>
-            <span className="data-value">120+</span>
+            <span className="data-value highlight-pulse">120+</span>
           </div>
           <div className="data-point">
             <span className="data-label">Distance Traveled</span>
-            <span className="data-value">9.8B km</span>
+            <span className="data-value highlight-pulse">14.2 Light Years</span>
           </div>
         </motion.div>
       </div>

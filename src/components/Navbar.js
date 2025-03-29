@@ -47,7 +47,7 @@ const Navbar = () => {
             <a href="#space-technology">Technology</a>
           </li>
           <li className="nav-item">
-            <a href="#mission-control">Contact</a>
+            <a href="#mission-control">Booking</a>
           </li>
         </motion.ul>
         
@@ -85,7 +85,7 @@ const Navbar = () => {
             <a href="#space-technology" onClick={() => setMobileMenuOpen(false)}>Technology</a>
           </li>
           <li className="mobile-nav-item">
-            <a href="#mission-control" onClick={() => setMobileMenuOpen(false)}>Contact</a>
+            <a href="#mission-control" onClick={() => setMobileMenuOpen(false)}>Booking</a>
           </li>
         </ul>
       </div>

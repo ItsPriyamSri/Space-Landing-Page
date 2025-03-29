@@ -4,12 +4,23 @@
 @import 'typography';
 @import 'animations';
 
+// Define our three main text gradients
+$cosmic-purple-gradient: linear-gradient(to right, var(--color-nebula-purple), var(--color-nebula-teal));
+$nebula-sunset-gradient: linear-gradient(to right, var(--color-nebula-pink), var(--color-energy-yellow));
+$galactic-core-gradient: linear-gradient(to right, var(--color-energy-blue), var(--color-nebula-purple), var(--color-space-navy));
+
+// Text shadow definitions
+$soft-glow: 0 0 10px rgba(var(--color-nebula-teal-rgb), 0.3);
+$medium-glow: 0 0 15px rgba(var(--color-nebula-teal-rgb), 0.5), 0 0 20px rgba(var(--color-nebula-purple-rgb), 0.3);
+$strong-glow: 0 0 20px rgba(var(--color-nebula-teal-rgb), 0.7), 0 0 30px rgba(var(--color-nebula-purple-rgb), 0.5);
+
 // Components
 @import 'components/starfield';
 @import 'components/navbar';
 @import 'components/footer';
 @import 'components/loader';
 @import 'components/cursor-particles';
+@import 'components/booking-popup';
 
 // Sections
 @import 'sections/observatory-deck';
@@ -47,4 +58,12 @@ main.content {
     var(--color-nebula-purple)
   );
   border-radius: 4px;
+}
+
+/* Reduce spacing between sections */
+.App {
+  section {
+    padding: 3rem 0; /* Reduced from what was likely 5-6rem */
+    margin-bottom: 1rem; /* Reduced margin between sections */
+  }
 }

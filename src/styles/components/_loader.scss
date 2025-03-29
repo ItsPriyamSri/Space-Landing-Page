@@ -4,53 +4,344 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: var(--color-space-black);
-  @include flex(column, center, center);
+  background: linear-gradient(to bottom, #050814 0%, #0e142c 100%);
   z-index: var(--z-index-modal);
-
-  .loader-star {
-    width: 80px;
-    height: 80px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  
+  /* Cosmic background with subtle stars */
+  .cosmic-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    
+    .planet {
+      position: absolute;
+      border-radius: 50%;
+      opacity: 0.6;
+      
+      &.planet-1 {
+        top: 20%;
+        right: 15%;
+        width: 80px;
+        height: 80px;
+        background: radial-gradient(circle at 30% 30%, #7a5fff 0%, #3a2580 70%);
+        box-shadow: 0 0 20px rgba(122, 95, 255, 0.4);
+        animation: planetPulse 8s infinite ease-in-out;
+      }
+      
+      &.planet-2 {
+        bottom: 15%;
+        left: 10%;
+        width: 120px;
+        height: 120px;
+        background: radial-gradient(circle at 40% 40%, #38ffdd 0%, #1a7268 70%);
+        box-shadow: 0 0 30px rgba(56, 255, 221, 0.3);
+        animation: planetPulse 12s infinite ease-in-out reverse;
+      }
+    }
+    
+    .nebula {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(1.5);
+      width: 800px;
+      height: 800px;
+      background: radial-gradient(
+        ellipse at center,
+        rgba(122, 95, 255, 0.1) 0%,
+        rgba(56, 255, 221, 0.05) 40%,
+        rgba(0, 0, 0, 0) 70%
+      );
+      opacity: 0.3;
+      filter: blur(30px);
+      animation: nebulaPulse 15s infinite alternate ease-in-out;
+    }
+    
+    .shooting-star {
+      position: absolute;
+      top: 20%;
+      left: -100px;
+      width: 100px;
+      height: 2px;
+      background: linear-gradient(to right, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0));
+      animation: shootingStar 2.5s infinite ease-out;
+      
+      &::after {
+        content: '';
+        position: absolute;
+        top: -2px;
+        right: 0;
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.8);
+        box-shadow: 0 0 15px 5px rgba(255, 255, 255, 0.4);
+      }
+      
+      &.shooting-star-2 {
+        top: 60%;
+        animation-delay: 3s;
+        animation-duration: 3s;
+      }
+    }
+  }
+  
+  &-inner {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 500px;
+  }
+  
+  &-stars {
+    position: relative;
+    width: 120px;
+    height: 120px;
+    margin-bottom: 30px;
+    
+    .star-1, .star-2, .star-3 {
+      position: absolute;
+      background-color: white;
+      border-radius: 50%;
+      opacity: 0;
+      transform: scale(0);
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.8),
+                 0 0 20px rgba(56, 255, 221, 0.4);
+    }
+    
+    .star-1 {
+      width: 20px;
+      height: 20px;
+      top: 30px;
+      left: 50px;
+      background: radial-gradient(circle, var(--color-nebula-purple) 0%, rgba(122, 95, 255, 0.3) 70%);
+      animation: pulsate 1.5s ease-in-out infinite;
+      animation-delay: 0s;
+    }
+    
+    .star-2 {
+      width: 15px;
+      height: 15px;
+      top: 50px;
+      left: 30px;
+      background: radial-gradient(circle, var(--color-nebula-teal) 0%, rgba(56, 255, 221, 0.3) 70%);
+      animation: pulsate 1.5s ease-in-out infinite;
+      animation-delay: 0.5s;
+    }
+    
+    .star-3 {
+      width: 15px;
+      height: 15px;
+      top: 40px;
+      right: 30px;
+      background: radial-gradient(circle, var(--color-nebula-pink) 0%, rgba(255, 107, 243, 0.3) 70%);
+      animation: pulsate 1.5s ease-in-out infinite;
+      animation-delay: 1s;
+    }
+    
+    .orbital-ring {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      border-radius: 50%;
+      border: 1px solid rgba(56, 255, 221, 0.3);
+      
+      &::after {
+        content: '';
+        position: absolute;
+        width: 5px;
+        height: 5px;
+        border-radius: 50%;
+        background-color: var(--color-nebula-teal);
+        box-shadow: 0 0 10px rgba(56, 255, 221, 0.8);
+      }
+      
+      &.ring-1 {
+        width: 70px;
+        height: 70px;
+        border-color: rgba(56, 255, 221, 0.3);
+        animation: rotateRing 6s linear infinite;
+        
+        &::after {
+          top: -2.5px;
+          left: 50%;
+          transform: translateX(-50%);
+          background-color: var(--color-nebula-teal);
+        }
+      }
+      
+      &.ring-2 {
+        width: 110px;
+        height: 110px;
+        border-color: rgba(122, 95, 255, 0.3);
+        animation: rotateRing 10s linear infinite reverse;
+        
+        &::after {
+          bottom: -2.5px;
+          left: 30%;
+          background-color: var(--color-nebula-purple);
+        }
+      }
+    }
+  }
+  
+  &-text {
+    font-family: var(--font-primary);
+    font-size: 1.2rem;
+    color: var(--color-text-primary);
+    font-weight: 400;
+    letter-spacing: 1px;
+    text-align: center;
+    max-width: 80%;
+    margin-bottom: 25px;
+    animation: fadeInOut 3s ease-in-out infinite;
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+  }
+  
+  .loader-progress-container {
+    width: 250px;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 2px;
+    overflow: hidden;
+    margin-bottom: 20px;
     position: relative;
     
-    &::before, &::after {
+    &::after {
       content: '';
       position: absolute;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
+      background: linear-gradient(to right, 
+        transparent, 
+        rgba(255, 255, 255, 0.2), 
+        transparent);
+      animation: progressShine 2s linear infinite;
     }
     
-    &::before {
-      background: conic-gradient(
-        var(--color-nebula-pink),
-        var(--color-nebula-purple),
-        var(--color-nebula-teal),
-        var(--color-energy-cyan),
-        var(--color-nebula-pink)
-      );
-      border-radius: 50%;
-      animation: loader-spin 2s linear infinite;
-    }
-    
-    &::after {
-      background-color: var(--color-space-black);
-      border-radius: 40%;
-      top: 20%;
-      left: 20%;
-      width: 60%;
-      height: 60%;
+    .loader-progress-bar {
+      height: 100%;
+      background: linear-gradient(to right, var(--color-nebula-purple), var(--color-nebula-teal));
+      border-radius: 2px;
+      transition: width 0.5s ease;
     }
   }
   
-  .loader-text {
-    margin-top: var(--spacing-lg);
-    font-family: var(--font-primary);
-    font-size: 1.2rem;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    color: var(--color-text-primary);
-    animation: pulse 2s infinite;
+  .console-text {
+    font-family: 'Courier New', monospace;
+    font-size: 0.8rem;
+    color: var(--color-nebula-teal);
+    margin-top: 10px;
+    letter-spacing: 1px;
+    
+    .system-status {
+      margin-right: 5px;
+    }
+    
+    .blink-cursor {
+      animation: blink 1s step-end infinite;
+    }
+  }
+}
+
+@keyframes pulsate {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(0);
+    opacity: 0;
+  }
+}
+
+@keyframes fadeInOut {
+  0% {
+    opacity: 0.4;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.4;
+  }
+}
+
+@keyframes rotateRing {
+  from {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  to {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
+@keyframes planetPulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.6;
+  }
+  50% {
+    transform: scale(1.05);
+    opacity: 0.8;
+  }
+}
+
+@keyframes nebulaPulse {
+  0% {
+    opacity: 0.2;
+    transform: translate(-50%, -50%) scale(1.5);
+  }
+  100% {
+    opacity: 0.4;
+    transform: translate(-50%, -50%) scale(1.8);
+  }
+}
+
+@keyframes shootingStar {
+  0% {
+    transform: translateX(0) translateY(0);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(calc(100vw + 200px)) translateY(20vh);
+    opacity: 0;
+  }
+}
+
+@keyframes progressShine {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+@keyframes blink {
+  0%, 49% {
+    opacity: 1;
+  }
+  50%, 100% {
+    opacity: 0;
   }
 }

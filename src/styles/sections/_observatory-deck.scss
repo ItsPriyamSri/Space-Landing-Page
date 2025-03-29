@@ -12,22 +12,24 @@
   }
 }
 
-@keyframes astronautFlyAway {
-  0% {
-    transform: translateY(0) rotate(0);
-  }
-  100% {
-    transform: translateY(-100px) translateX(-100px) rotate(720deg) scale(0.5);
-    opacity: 0;
-  }
-}
-
 @keyframes pulseGlow {
   0%, 100% {
     text-shadow: 0 0 10px rgba(56, 255, 221, 0.5), 0 0 20px rgba(56, 255, 221, 0.3);
   }
   50% {
     text-shadow: 0 0 20px rgba(56, 255, 221, 0.8), 0 0 30px rgba(56, 255, 221, 0.5), 0 0 40px rgba(56, 255, 221, 0.3);
+  }
+}
+
+// Add tooltip animation
+@keyframes tooltipFadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
@@ -47,7 +49,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: -1;
+    z-index: 0;
     
     .sun-glow {
       position: absolute;
@@ -86,13 +88,16 @@
     .nebula-clouds {
       position: absolute;
       top: 0;
+      left: 0;
       right: 0;
+      bottom: 0;
       width: 100%;
       height: 100%;
-      background: url('https://media.istockphoto.com/id/540717412/photo/blue-and-pink-nebula.jpg?s=612x612&w=0&k=20&c=LaTwe58EG3HNajqCIR-q_Pdlx9Z6w_IXeHI7eyZoPoQ=');
-      background-size: cover;
+      background: url('https://media.istockphoto.com/id/540717412/photo/blue-and-pink-nebula.jpg?s=612x612&w=0&k=20&c=LaTwe58EG3HNajqCIR-q_Pdlx9Z6w_IXeHI7eyZoPoQ=') center center/cover no-repeat;
       opacity: 0.2;
       mix-blend-mode: screen;
+      z-index: 0;
+      pointer-events: none; 
     }
     
     .shooting-stars-container {
@@ -105,10 +110,10 @@
       
       .ufo {
         position: absolute;
-        width: 50px;
-        height: 25px;
+        width: 30px; /* Reduced size from 50px */
+        height: 15px; /* Reduced size from 25px */
         opacity: 0;
-        z-index: 1;
+        z-index: 5;
         animation: ufoZoom 15s linear infinite;
         animation-delay: calc(var(--delay) * 1s);
         
@@ -194,23 +199,20 @@
       font-size: 4.5rem;
       font-weight: 800;
       margin-bottom: 1.5rem;
-      background: linear-gradient(to right, #fff, $energy-blue);
+      background: $cosmic-purple-gradient;
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       
-      // Enhanced text shadow and animation
+      // Remove initial glow, keep only hover effect
       &.glowing-text {
-        animation: pulseGlow 3s infinite;
+        text-shadow: none; // Remove initial glow
+        transition: text-shadow 0.3s ease, transform 0.3s ease;
         position: relative;
         
         &:hover {
           animation: none;
-          text-shadow: 0 0 20px rgba(56, 255, 221, 0.8), 
-                      0 0 30px rgba(56, 255, 221, 0.6),
-                      0 0 40px rgba(56, 255, 221, 0.4),
-                      0 0 50px rgba(56, 255, 221, 0.2);
+          text-shadow: $strong-glow; // Apply glow only on hover
           transform: scale(1.03);
-          transition: transform 0.3s ease;
         }
       }
     }
@@ -332,6 +334,34 @@
           transform: scale(1.05);
         }
       }
+      
+      .tooltip {
+        position: absolute;
+        top: 40%;        /* Position adjusted to be within the actual image area, not the frame */
+        left: 50%;
+        transform: translateX(-50%);
+        background: rgba(20, 30, 60, 0.9);
+        color: $energy-blue;
+        padding: 8px 15px;
+        border-radius: 4px;
+        font-weight: bold;
+        font-size: 14px;
+        white-space: nowrap;
+        border: 1px solid rgba(56, 255, 221, 0.3);
+        animation: tooltipFadeIn 0.3s ease forwards;
+        z-index: 10;
+        
+        &:after {
+          content: '';
+          position: absolute;
+          bottom: -10px;
+          left: 50%;
+          transform: translateX(-50%);
+          border-width: 5px;
+          border-style: solid;
+          border-color: rgba(20, 30, 60, 0.9) transparent transparent transparent;
+        }
+      }
     }
     
     .astronaut-rocket {
@@ -341,11 +371,44 @@
       top: 50%;  /* Default center position, GSAP will handle the exact positioning */
       right: 20%; /* Position more to the right of the spaceship */
       z-index: 3;
-      pointer-events: none; /* Ensure the astronaut doesn't interfere with interactions */
+      filter: drop-shadow(0 0 8px rgba($nebula-purple, 0.3)); // Initial faint glow
+      transition: filter 0.3s ease;
       
       img {
         width: 100%;
         height: auto;
+      }
+      
+      &:hover {
+        filter: drop-shadow(0 0 15px rgba($nebula-purple, 0.6)); // Brighter glow on hover
+      }
+      
+      .tooltip {
+        position: absolute;
+        top: -40px;
+        left: 0;         /* Adjusted from 50% to align directly above astronaut's head */
+        transform: none; /* Removed the translateX to avoid offset */
+        background: rgba(20, 30, 60, 0.9);
+        color: $nebula-purple;
+        padding: 8px 15px;
+        border-radius: 4px;
+        font-weight: bold;
+        font-size: 14px;
+        white-space: nowrap;
+        border: 1px solid rgba(149, 69, 255, 0.3);
+        animation: tooltipFadeIn 0.3s ease forwards;
+        z-index: 10;
+        
+        &:after {
+          content: '';
+          position: absolute;
+          bottom: -10px;
+          left: 20px;    /* Adjusted to point to astronaut's head */
+          transform: none; /* Removed translateX to match new positioning */
+          border-width: 5px;
+          border-style: solid;
+          border-color: rgba(20, 30, 60, 0.9) transparent transparent transparent;
+        }
       }
     }
   }
@@ -391,15 +454,133 @@
     
     .stat-item {
       text-align: center;
+      position: relative;
+      overflow: hidden;
+      padding: 1rem;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      
+      /* Add cosmic border on hover instead of glow */
+      &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: calc(100% - 2px);
+        height: calc(100% - 2px);
+        border: 1px solid transparent;
+        border-radius: 8px;
+        background: linear-gradient(45deg, $nebula-purple, $energy-blue, $nebula-pink) border-box;
+        -webkit-mask: 
+          linear-gradient(#fff 0 0) padding-box,
+          linear-gradient(#fff 0 0);
+        -webkit-mask-composite: xor;
+        mask-composite: exclude;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      }
+      
+      /* Replace glow with cosmic pattern background */
+      &::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: 
+          radial-gradient(1px 1px at 10px 10px, rgba(56, 255, 221, 0.3), rgba(0,0,0,0)),
+          radial-gradient(1px 1px at 20px 30px, rgba(122, 95, 255, 0.3), rgba(0,0,0,0)),
+          radial-gradient(1px 1px at 30px 10px, rgba(255, 107, 243, 0.3), rgba(0,0,0,0)),
+          radial-gradient(1px 1px at 40px 40px, rgba(56, 255, 221, 0.3), rgba(0,0,0,0));
+        background-size: 50px 50px;
+        opacity: 0;
+        z-index: -1;
+        transition: opacity 0.3s ease, transform 0.5s ease;
+        transform: scale(1.5);
+      }
+      
+      &:hover {
+        transform: translateY(-5px);
+        
+        &::before {
+          opacity: 1;
+        }
+        
+        &::after {
+          opacity: 0.1;
+          transform: scale(1);
+        }
+        
+        .stat-value {
+          /* Add pop effect on hover */
+          animation: statPop 0.5s ease forwards;
+        }
+        
+        .stat-label {
+          color: rgba(255,255,255,0.9);
+          letter-spacing: 1.5px;
+        }
+      }
       
       .stat-value {
         display: block;
-        font-size: 2rem;
+        font-size: 2.2rem;
         font-weight: 700;
         margin-bottom: 0.2rem;
         background: linear-gradient(to right, #fff, $energy-blue);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
+        position: relative;
+        transition: all 0.3s ease;
+        
+        /* Add a shimmering effect instead of glow */
+        &::after {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background: linear-gradient(
+            90deg, 
+            rgba(255,255,255,0) 0%, 
+            rgba(255,255,255,0.8) 50%, 
+            rgba(255,255,255,0) 100%
+          );
+          background-size: 200% 100%;
+          opacity: 0;
+          transition: opacity 0.3s ease;
+        }
+        
+        /* Add counter animation effect */
+        &.animated-number {
+          position: relative;
+          
+          &::before {
+            content: '0';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to right, #fff, $energy-blue);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            opacity: 0;
+          }
+        }
+        
+        /* Enhanced hover animation replacing glow */
+        &:hover {
+          transform: scale(1.1);
+          
+          &::after {
+            opacity: 1;
+            animation: statShine 1.5s ease-in-out infinite;
+          }
+        }
       }
       
       .stat-label {
@@ -408,6 +589,38 @@
         color: rgba(255,255,255,0.6);
         text-transform: uppercase;
         letter-spacing: 1px;
+        transition: color 0.3s ease;
+        
+        /* Add subtle icon with animation */
+        &::before {
+          display: inline-block;
+          margin-right: 5px;
+          opacity: 0.7;
+          transform: scale(0);
+          transition: transform 0.3s ease;
+        }
+        
+        /* Customize icons for each stat */
+        &.days::before {
+          content: '🛰️';
+        }
+        
+        &.systems::before {
+          content: '✨';
+        }
+        
+        &.rating::before {
+          content: '🏆';
+        }
+        
+        &.support::before {
+          content: '🌠';
+        }
+      }
+      
+      &:hover .stat-label::before {
+        transform: scale(1.2);
+        opacity: 1;
       }
     }
     
@@ -422,21 +635,16 @@
   }
 }
 
-@keyframes floatAndRotateAstronaut {
+@keyframes simpleDriftAndSpin {
   0% {
     transform: translateY(0) translateX(0) rotate(0deg);
-  }
-  25% {
-    transform: translateY(-20px) translateX(10px) rotate(90deg);
-  }
-  50% {
-    transform: translateY(-10px) translateX(20px) rotate(180deg);
-  }
-  75% {
-    transform: translateY(5px) translateX(10px) rotate(270deg);
+    opacity: 1;
+    scale: 1;
   }
   100% {
-    transform: translateY(0) translateX(0) rotate(360deg);
+    transform: translateY(-250px) translateX(500px) rotate(360deg);
+    opacity: 0;
+    scale: 0.2;
   }
 }
 
@@ -526,33 +734,63 @@
   0% {
     transform: translateX(-100vw) translateY(50vh) scale(0.2);
     opacity: 0;
+    z-index: 10; /* Ensure UFOs are above other elements */
   }
   10% {
     opacity: 0.8;
+    z-index: 10;
   }
   90% {
     opacity: 0.8;
+    z-index: 10;
   }
   100% {
     transform: translateX(100vw) translateY(30vh) scale(0.2);
     opacity: 0;
+    z-index: 10;
   }
 }
 
-@keyframes spinAstronaut {
+/* Add these new keyframes for the stat hover effects */
+@keyframes statValueReveal {
   0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
-}
-
-@keyframes floatAstronaut {
-  0%, 100% {
-    transform: translateY(0) rotate(90deg);
+    transform: translateY(0);
+    opacity: 1;
   }
   50% {
-    transform: translateY(-20px) rotate(90deg);
+    transform: translateY(-15px);
+    opacity: 0;
+  }
+  51% {
+    transform: translateY(15px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes statShine {
+  0% {
+    background-position: -100% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+@keyframes statPop {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.15);
+  }
+  75% {
+    transform: scale(0.95);
+  }
+  100% {
+    transform: scale(1.05);
   }
 }
