@@ -21,6 +21,31 @@
   
   .logo {
     @include flex(row, flex-start, center);
+    position: relative;
+    cursor: pointer;
+    transition: transform var(--transition-medium);
+    
+    &:hover {
+      transform: scale(1.05);
+      
+      .logo-icon svg {
+        fill: transparent;
+        background: linear-gradient(45deg, $energy-yellow, #FFA500);
+        background-clip: text;
+        -webkit-background-clip: text;
+        filter: drop-shadow(0 0 3px rgba($energy-yellow, 0.8));
+        animation: glitterGold 1.5s infinite;
+      }
+      
+      .logo-text {
+        background: linear-gradient(90deg, $nebula-pink, $energy-yellow, $nebula-purple);
+        background-size: 200% auto;
+        background-clip: text;
+        -webkit-background-clip: text;
+        animation: shine 2s linear infinite;
+        text-shadow: 0 0 10px rgba($energy-yellow, 0.5);
+      }
+    }
     
     .logo-icon {
       width: 40px;
@@ -29,6 +54,7 @@
       
       svg {
         fill: var(--color-nebula-purple);
+        transition: all var(--transition-medium);
       }
     }
     
@@ -41,6 +67,7 @@
       background-clip: text;
       -webkit-background-clip: text;
       color: transparent;
+      transition: all var(--transition-medium);
     }
   }
   
@@ -77,6 +104,17 @@
     border-radius: 50%;
     border: 1px solid rgba(255, 255, 255, 0.1);
     @include flex(row, center, center);
+    position: relative;
+    
+    &:hover {
+      .hamburger span {
+        background: linear-gradient(90deg, $nebula-teal, $energy-yellow);
+      }
+    }
+    
+    &:active {
+      transform: scale(0.95);
+    }
     
     .hamburger {
       width: 20px;
@@ -93,7 +131,7 @@
         opacity: 1;
         left: 0;
         transform: rotate(0deg);
-        transition: transform var(--transition-medium), opacity var(--transition-fast);
+        transition: transform var(--transition-medium), opacity var(--transition-fast), background var(--transition-fast);
         
         &:nth-child(1) {
           top: 0px;
@@ -106,6 +144,35 @@
         &:nth-child(4) {
           top: 14px;
         }
+      }
+    }
+    
+    .hamburger-message {
+      position: absolute;
+      top: 50px;
+      right: 0;
+      background: rgba($space-navy, 0.9);
+      border: 1px solid $nebula-teal;
+      padding: 10px 15px;
+      border-radius: 8px;
+      color: $text-primary;
+      font-size: 0.9rem;
+      width: max-content;
+      max-width: 200px;
+      z-index: 10;
+      animation: popIn 0.3s ease-out forwards;
+      box-shadow: 0 0 15px rgba($nebula-purple, 0.5);
+      
+      &::before {
+        content: '';
+        position: absolute;
+        top: -8px;
+        right: 12px;
+        width: 0;
+        height: 0;
+        border-left: 8px solid transparent;
+        border-right: 8px solid transparent;
+        border-bottom: 8px solid $nebula-teal;
       }
     }
     
@@ -184,5 +251,37 @@
     @include respond-to(large) {
       display: block;
     }
+  }
+}
+
+@keyframes shine {
+  0% {
+    background-position: 0% center;
+  }
+  100% {
+    background-position: 200% center;
+  }
+}
+
+@keyframes glitterGold {
+  0%, 100% {
+    filter: drop-shadow(0 0 3px rgba($energy-yellow, 0.8));
+  }
+  50% {
+    filter: drop-shadow(0 0 8px rgba($energy-yellow, 1));
+  }
+}
+
+@keyframes popIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.8) translateY(-10px);
+  }
+  70% {
+    transform: scale(1.05) translateY(0);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
   }
 }

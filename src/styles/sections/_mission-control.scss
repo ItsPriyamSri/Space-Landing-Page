@@ -718,6 +718,29 @@
       }
     }
   }
+  
+  .booking-cta {
+    text-align: center;
+    padding: var(--spacing-md);
+    margin: var(--spacing-md) 0;
+    
+    p {
+      font-size: 1.2rem;
+      background: $cosmic-purple-gradient;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-weight: 600;
+      text-shadow: $soft-glow;
+      margin-bottom: var(--spacing-sm);
+      letter-spacing: 0.5px;
+      
+      &:hover {
+        text-shadow: $medium-glow;
+        transform: scale(1.02);
+        transition: transform 0.3s ease, text-shadow 0.3s ease;
+      }
+    }
+  }
 }
 
 @keyframes iconPulse {

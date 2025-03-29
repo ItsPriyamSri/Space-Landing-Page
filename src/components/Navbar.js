@@ -1,12 +1,53 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 
 const Navbar = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [hamburgerClicked, setHamburgerClicked] = useState(0);
+  const [hamburgerMessage, setHamburgerMessage] = useState('');
+  
+  // Funny messages to show when hamburger is repeatedly clicked
+  const funnyMessages = [
+    "Hey, I'm just a hamburger menu!",
+    "Stop poking me!",
+    "Are you trying to feed me?",
+    "I'm getting dizzy...",
+    "Ok, here's a secret: *whispers* I'm not actually food",
+    "If you click me 3 more times, aliens will show up...",
+    "Just kidding about the aliens...or was I?",
+    "That's it, I'm calling space security!",
+    "ALERT: Human repeatedly pressing innocent hamburger menu",
+    "Fine! You win! Here's your reward: 🛸"
+  ];
   
   const toggleMobileMenu = () => {
     setMobileMenuOpen(!mobileMenuOpen);
+    setHamburgerClicked(prev => {
+      const newCount = prev + 1;
+      
+      // Show a message if clicked multiple times
+      if (newCount >= 3) {
+        const messageIndex = Math.min(funnyMessages.length - 1, Math.floor(newCount / 3));
+        setHamburgerMessage(funnyMessages[messageIndex]);
+        
+        // Clear message after 3 seconds
+        setTimeout(() => {
+          setHamburgerMessage('');
+        }, 3000);
+      }
+      
+      return newCount;
+    });
   };
+  
+  // Add the Easter egg console message when page loads
+  useEffect(() => {
+    // This message will appear when someone opens dev tools
+    console.log("%c👽 ATTENTION HUMAN DEVELOPER 👽", "color: #38FFDD; font-size: 20px; font-weight: bold;");
+    console.log("%cYou've discovered our secret communication channel!", "color: #7A5FFF; font-size: 14px;");
+    console.log("%cThe mothership is watching. Your curiosity has been noted.", "color: #FF3D81; font-size: 14px;");
+    console.log("%cP.S. We come in peace... for now.", "color: #FFD046; font-size: 12px; font-style: italic;");
+  }, []);
   
   return (
     <nav className="navbar">
@@ -64,6 +105,7 @@ const Navbar = () => {
             <span></span>
             <span></span>
           </div>
+          {hamburgerMessage && <div className="hamburger-message">{hamburgerMessage}</div>}
         </motion.button>
       </div>
       

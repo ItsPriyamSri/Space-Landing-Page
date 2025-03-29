@@ -35,29 +35,41 @@
   .popup-spaceship {
     position: relative;
     margin-bottom: 20px;
+    margin-top: -50px; /* Add negative margin to move ship up */
+    display: flex;
+    justify-content: center;
+    align-items: center;
     
     img {
       max-width: 100%;
       height: auto;
+      animation: floatPopupShip 4s infinite ease-in-out;
+      position: relative;
+      z-index: 2;
     }
     
     .tractor-beam {
       position: absolute;
-      top: 60%;
+      top: 50%;  /* Start from the center of the ship */
       left: 50%;
-      width: 100px;
-      height: 200px;
-      transform: translateX(-50%);
-      background: linear-gradient(to bottom, rgba(56, 255, 221, 0.7), rgba(56, 255, 221, 0));
-      opacity: 0.6;
-      border-radius: 50% 50% 0 0;
-      z-index: -1;
+      width: 120px;
+      height: 250px;
+      transform: translate(-50%, 0); /* Center horizontally and extend down */
+      background: linear-gradient(to bottom, 
+                  rgba(56, 255, 221, 0.9) 0%, 
+                  rgba(56, 255, 221, 0.7) 20%, 
+                  rgba(56, 255, 221, 0.4) 50%, 
+                  rgba(56, 255, 221, 0) 100%);
+      border-radius: 60px 60px 0 0;
+      opacity: 0.85;
+      z-index: 1;
       overflow: hidden;
+      animation: pulseTractorBeam 4s infinite ease-in-out;
       
       .beam-particles {
         width: 100%;
         height: 100%;
-        background-image: radial-gradient(circle, rgba(255, 255, 255, 0.8) 1px, transparent 1px);
+        background-image: radial-gradient(circle, rgba(255, 255, 255, 0.9) 1px, transparent 1px);
         background-size: 10px 10px;
         animation: beamParticlesFloat 2s infinite linear;
       }
@@ -113,18 +125,18 @@
     transform: translateY(0);
   }
   50% {
-    transform: translateY(-15px);
+    transform: translateY(-8px);
   }
 }
 
 @keyframes pulseTractorBeam {
   0%, 100% {
-    opacity: 0.7;
-    width: 80px;
+    opacity: 0.85;
+    width: 120px;
   }
   50% {
-    opacity: 0.9;
-    width: 90px;
+    opacity: 0.95;
+    width: 130px;
   }
 }
 
@@ -141,14 +153,14 @@
 
 @keyframes beamParticlesFloat {
   0% {
-    top: 0;
+    transform: translateY(-20px);
     opacity: 0;
   }
   20% {
-    opacity: 0.8;
+    opacity: 1;
   }
   100% {
-    top: 90%;
+    transform: translateY(150px);
     opacity: 0;
   }
 }
