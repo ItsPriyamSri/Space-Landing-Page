@@ -43,21 +43,29 @@ const SpaceParticles = () => {
 };
 
 const StarField = () => {
-  // Create a few random meteors at intervals
+  // Create a simple meteor that goes from top-left to bottom-right
   useEffect(() => {
+    // Function to create a single meteor
     const createMeteor = () => {
+      // Create the meteor element
       const meteor = document.createElement('div');
       meteor.classList.add('meteor');
       
-      // Random position and angle
-      const top = Math.random() * 40;
-      const left = Math.random() * 100;
-      const angle = Math.random() * 45;
+      // Set position at top-left area (with slight randomness)
+      const startX = 5 + Math.random() * 10; // 5-15% from left
+      const startY = 5 + Math.random() * 10; // 5-15% from top
       
-      meteor.style.top = `${top}%`;
-      meteor.style.left = `${left}%`;
-      meteor.style.transform = `rotate(${angle}deg)`;
+      meteor.style.top = `${startY}%`;
+      meteor.style.left = `${startX}%`;
       
+      // Direction is fixed: from top-left to bottom-right
+      const angle = 45; // 45 degrees = diagonal from top-left to bottom-right
+      
+      // Set the transform to make the tail point in the right direction
+      // 45 degrees for a top-left to bottom-right movement with head first
+      meteor.style.transform = `rotate(45deg)`;
+      
+      // Add meteor to the starfield
       const starfield = document.querySelector('.starfield');
       if (starfield) {
         starfield.appendChild(meteor);
@@ -67,14 +75,17 @@ const StarField = () => {
           if (meteor.parentNode === starfield) {
             starfield.removeChild(meteor);
           }
-        }, 10000);
+        }, 3000); // Animation duration is 2.5s, add a little buffer
       }
     };
     
-    // Create meteors at random intervals
+    // Create meteors at intervals of 10-15 seconds
     const meteorInterval = setInterval(() => {
       createMeteor();
-    }, 8000);
+    }, 10000 + Math.random() * 5000);
+    
+    // Create one initially with a short delay
+    setTimeout(createMeteor, 3000);
     
     return () => clearInterval(meteorInterval);
   }, []);

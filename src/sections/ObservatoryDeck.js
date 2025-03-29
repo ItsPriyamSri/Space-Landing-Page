@@ -8,102 +8,33 @@ gsap.registerPlugin(ScrollTrigger);
 
 const ObservatoryDeck = () => {
   const sectionRef = useRef(null);
-  const planetRef = useRef(null);
   const astronautRef = useRef(null);
-  const ufoRef = useRef(null);
+  const spaceshipRef = useRef(null);
   
   useEffect(() => {
-    // Animate the floating planet
-    const planet = planetRef.current;
-    if (planet) {
-      gsap.to(planet, {
-        y: 30,
-        duration: 8,
-        ease: "sine.inOut",
-        repeat: -1,
-        yoyo: true
-      });
-    }
+    // Create random UFOs
+    const createUFOs = () => {
+      const container = document.querySelector('.shooting-stars-container');
+      if (!container) return;
+      
+      // Clear existing objects
+      container.innerHTML = '';
+      
+      // Create 3 UFOs with random delays
+      for (let i = 0; i < 3; i++) {
+        const ufo = document.createElement('div');
+        ufo.className = 'ufo';
+        // Set random delay variable for each UFO (between 0 and 20s)
+        ufo.style.setProperty('--delay', Math.random() * 20);
+        container.appendChild(ufo);
+      }
+    };
     
-    // Animate floating astronaut
-    const astronaut = astronautRef.current;
-    if (astronaut) {
-      // Rotation animation for spinning effect
-      gsap.to(astronaut, {
-        rotation: 360,
-        duration: 20,
-        ease: "none",
-        repeat: -1
-      });
-      
-      // Floating path animation - drifting slowly through space
-      gsap.to(astronaut, {
-        x: -150,
-        y: 150,
-        duration: 25,
-        ease: "sine.inOut",
-        repeat: -1,
-        yoyo: true
-      });
-    }
+    // Initialize UFOs
+    createUFOs();
     
-    // Animate UFO with interesting movement pattern
-    const ufo = ufoRef.current;
-    if (ufo) {
-      // Create a timeline for more complex movement
-      const ufoTimeline = gsap.timeline({
-        repeat: -1,
-        yoyo: false
-      });
-      
-      // Add movement segments to the timeline
-      ufoTimeline
-        .to(ufo, {
-          x: 200, 
-          y: -100,
-          duration: 4,
-          ease: "power1.inOut"
-        })
-        .to(ufo, {
-          x: 300,
-          y: 50,
-          duration: 3,
-          ease: "power2.out"
-        })
-        .to(ufo, {
-          x: 0,
-          y: 0,
-          duration: 5,
-          ease: "sine.inOut"
-        })
-        .to(ufo, {
-          x: -200,
-          y: -50,
-          duration: 3.5,
-          ease: "power1.inOut"
-        })
-        .to(ufo, {
-          x: -300,
-          y: 100,
-          duration: 4,
-          ease: "power2.out"
-        })
-        .to(ufo, {
-          x: 0,
-          y: 0,
-          duration: 5,
-          ease: "sine.inOut"
-        });
-      
-      // Add subtle hover effect
-      gsap.to(ufo, {
-        y: "+=15",
-        duration: 1.5,
-        ease: "sine.inOut",
-        repeat: -1,
-        yoyo: true
-      });
-    }
+    // Recreate UFOs periodically
+    const ufoInterval = setInterval(createUFOs, 30000);
     
     // Parallax scroll effect for stars
     const section = sectionRef.current;
@@ -122,15 +53,61 @@ const ObservatoryDeck = () => {
         }
       );
     }
+    
+    // Astronaut initial subtle animation (constant rotation in space)
+    if (astronautRef.current) {
+      const astronaut = astronautRef.current;
+      
+      // Set initial position to the right of the spaceship
+      gsap.set(astronaut, {
+        x: 80,           // Start to the right of the spaceship
+        y: -40,          // Higher position (negative value moves it up)
+        rotation: 0,
+        opacity: 1
+      });
+      
+      // Astronaut continuous slow subtle rotation and movement
+      gsap.to(astronaut, {
+        rotation: 360,
+        repeat: -1,
+        duration: 12,
+        ease: "linear" // Constant speed with no easing for realistic space rotation
+      });
+      
+      // Astronaut drifting away on scroll
+      const driftTimeline = gsap.timeline({
+        scrollTrigger: {
+          trigger: section,
+          start: "top top",
+          end: "30% top",
+          scrub: 1.5
+        }
+      });
+      
+      driftTimeline.to(astronaut, {
+        x: 300,          // Drift further to the right
+        y: -150,         // And up
+        scale: 0.4,
+        opacity: 0,
+        duration: 5,
+        ease: "power1.in" // Gentle acceleration as astronaut drifts away
+      });
+    }
+    
+    return () => {
+      clearInterval(ufoInterval);
+    };
   }, []);
   
   return (
     <section id="observatory-deck" ref={sectionRef} className="observatory-deck">
       <div className="cosmic-background">
-        <div className="earth-view"></div>
         <div className="sun-glow"></div>
         <div className="backdrop-stars"></div>
         <div className="nebula-clouds"></div>
+        <div className="shooting-stars-container">
+          {/* UFOs will be dynamically added here */}
+        </div>
       </div>
       
       <div className="observatory-content">
@@ -141,7 +118,7 @@ const ObservatoryDeck = () => {
           transition={{ duration: 0.8, delay: 0.5 }}
         >
           <span className="cosmic-caption">Welcome to the</span>
-          <h1>Cosmic Gateway</h1>
+          <h1 className="glowing-text">Cosmic Gateway</h1>
           <p className="lead">
             Your portal to exploring the wonders of space from our cosmic viewpoint. 
             Experience the majesty of the cosmos like never before.
@@ -164,16 +141,12 @@ const ObservatoryDeck = () => {
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 1, delay: 0.8 }}
         >
-          <div className="planet" ref={planetRef}>
-            <div className="planet-atmosphere"></div>
-            <div className="planet-surface"></div>
-            <div className="planet-ring"></div>
+          <div className="spaceship" ref={spaceshipRef}>
+            <img src="/images/Spaceship.png" alt="Cosmic spaceship" />
           </div>
-          <div className="floating-astronaut" ref={astronautRef}>
-            <img src="/images/astronaut.png" alt="Floating astronaut" />
-          </div>
-          <div className="floating-ufo" ref={ufoRef}>
-            <img src="https://cdn.pixabay.com/photo/2018/01/25/19/16/ufo-3106867_1280.png" alt="UFO spacecraft" />
+          
+          <div className="astronaut-rocket" ref={astronautRef}>
+            <img src="/images/astronaut.png" alt="Astronaut with rocket" />
           </div>
         </motion.div>
         

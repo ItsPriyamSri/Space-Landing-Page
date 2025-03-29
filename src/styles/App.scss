@@ -1,3 +1,24 @@
+@import 'variables';
+@import 'mixins';
+@import 'reset';
+@import 'typography';
+@import 'animations';
+
+// Components
+@import 'components/starfield';
+@import 'components/navbar';
+@import 'components/footer';
+@import 'components/loader';
+@import 'components/cursor-particles';
+
+// Sections
+@import 'sections/observatory-deck';
+@import 'sections/cosmic-phenomena';
+@import 'sections/expedition-timeline';
+@import 'sections/astronaut-testimonials';
+@import 'sections/space-technology';
+@import 'sections/mission-control';
+
 .app {
   min-height: 100vh;
   position: relative;

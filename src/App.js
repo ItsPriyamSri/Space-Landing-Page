@@ -5,6 +5,7 @@ import './styles/App.scss';
 // Components
 import StarField from './components/StarField';
 import Navbar from './components/Navbar';
+import CursorParticles from './components/CursorParticles';
 import ObservatoryDeck from './sections/ObservatoryDeck';
 import CosmicPhenomena from './sections/CosmicPhenomena';
 import ExpeditionTimeline from './sections/ExpeditionTimeline';
@@ -38,6 +39,7 @@ function App() {
     <div className="app">
       <StarField />
       <Navbar />
+      <CursorParticles />
       <main className="content">
         <ObservatoryDeck />
         <CosmicPhenomena />

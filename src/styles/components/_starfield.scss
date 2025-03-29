@@ -57,14 +57,31 @@
   
   .meteor {
     position: absolute;
-    width: 100px;
-    height: 1px;
-    background: linear-gradient(90deg, 
-      rgba(255, 255, 255, 0), 
-      rgba(255, 255, 255, 1)
+    width: 150px;
+    height: 2px;
+    background: linear-gradient(to right, 
+      rgba(255, 255, 255, 0),
+      rgba(255, 255, 255, 0.3) 40%,
+      rgba(255, 255, 255, 0.8) 80%,
+      rgba(255, 255, 255, 1) 100%
     );
-    animation: meteor 10s linear;
-    transform-origin: right;
+    animation: meteor-diagonal 2.5s linear forwards;
     pointer-events: none;
+    border-radius: 50%;
+    box-shadow: 0 0 5px rgba(255, 255, 255, 0.8);
+    
+    &::before {
+      content: '';
+      position: absolute;
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background-color: rgba(255, 255, 255, 1);
+      right: 0;
+      left: auto;
+      top: 50%;
+      transform: translateY(-50%);
+      box-shadow: 0 0 10px rgba(255, 255, 255, 1);
+    }
   }
 }

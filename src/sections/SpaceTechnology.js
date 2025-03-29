@@ -10,42 +10,42 @@ const SpaceTechnology = () => {
       id: 1,
       name: "Quantum Navigation System",
       description: "Advanced navigation using quantum entanglement for instantaneous positioning across vast distances.",
-      image: "https://images.unsplash.com/photo-1470290378698-263af93ea696?q=80&w=2969&auto=format&fit=crop",
+      image: "https://img.freepik.com/premium-photo/quantum-computer-aboard-spaceship-used-navigation_976492-123208.jpg",
       specs: ["Accuracy: ±0.0001 lightyears", "Calculation time: <1ms", "Power usage: 22kW"]
     },
     {
       id: 2,
       name: "Gravitational Shield",
       description: "Protective field that regulates gravitational forces for comfortable living in any celestial environment.",
-      image: "https://images.unsplash.com/photo-1614315517650-3771cf72d18a?q=80&w=2944&auto=format&fit=crop",
+      image: "https://miro.medium.com/v2/resize:fit:3840/1*T6VzK8XTpRNV1uHeBd7d-w.jpeg",
       specs: ["Field strength: 15G", "Stability: 99.99%", "Coverage: 500m radius"]
     },
     {
       id: 3,
       name: "Antimatter Propulsion",
       description: "Cutting-edge engine using matter-antimatter annihilation for unprecedented speed and efficiency.",
-      image: "https://images.unsplash.com/photo-1578374173705-969cbe6f2d6b?q=80&w=2970&auto=format&fit=crop",
+      image: "https://www.slashgear.com/img/gallery/10-of-the-most-intense-sci-fi-engines-ranked-by-absurdity/shaw-fujikawa-translight-engine-1710184660.jpg",
       specs: ["Thrust: 28MN", "Efficiency: 99.6%", "Max speed: 0.25c"]
     },
     {
       id: 4,
       name: "Neural Interface",
       description: "Direct brain-computer connection for operating spacecraft systems with thought alone.",
-      image: "https://images.unsplash.com/photo-1581090700227-1e37b190418e?q=80&w=2970&auto=format&fit=crop",
+      image: "https://www.shutterstock.com/shutterstock/videos/3582801471/thumb/1.jpg?ip=x480",
       specs: ["Response time: 4ms", "Neural channels: 128k", "Learning period: 2 weeks"]
     },
     {
       id: 5,
       name: "Radiation Absorption Matrix",
       description: "Advanced material that converts harmful cosmic radiation into usable energy.",
-      image: "https://images.unsplash.com/photo-1532187643603-ba119ca4109e?q=80&w=2970&auto=format&fit=crop",
+      image: "https://cdn.arstechnica.net/wp-content/uploads/2023/12/active-radiation-shielding.jpg",
       specs: ["Absorption rate: 98.5%", "Energy conversion: 76%", "Lifespan: 25 years"]
     },
     {
       id: 6,
       name: "Atmospheric Synthesizer",
       description: "Creates and maintains Earth-like atmosphere within enclosed habitats.",
-      image: "https://images.unsplash.com/photo-1545156521-77bd85671d30?q=80&w=2800&auto=format&fit=crop",
+      image: "https://consensus.app/home/wp-content/uploads/2024/05/atmospher-of-mars-and-earth.webp",
       specs: ["O₂ output: 500L/min", "Filtration: 99.999%", "Adaptability: 12 profiles"]
     }
   ];
